@@ -1,4 +1,4 @@
-# 🎨 DevArt .NET – UI Design & Application Showcase
+# 🎨 DevArt .NET –--- UI Design & Application Showcase
 
 DevArt is a modern handicraft shopping application focused on providing a premium and minimalist shopping experience. This repository currently contains the complete high-fidelity UI/UX design created in **Figma**, with development planned using the **.NET ecosystem**.
 
