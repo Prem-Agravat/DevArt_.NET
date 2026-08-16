@@ -1,38 +1,16 @@
 # 🎨 DevArt .NET — UI Design & Application Showcase
 
-DevArt is a premium, modern handicraft shopping application focused on providing a tactile, organic, and minimalist ecommerce experience. 
+DevArt is a premium, modern handicraft e-commerce website designed to provide a seamless shopping experience for unique handmade goods. 
 
-The design phase of this project is now **fully completed**, showcasing high-fidelity UI/UX specifications in **Figma** for both the **Customer Shopping Experience** and the **Store Admin Panel**. Development is planned using the **.NET ecosystem** (such as ASP.NET Core, .NET MAUI, or Blazor).
-
----
-
-## ✨ Design Completion Overview
-
-We have built and finalized the designs for both sides of the application:
-
-### 🛍️ User (Customer) Section
-* **Authentication & Onboarding**: Clean, minimalist signup, login, and welcome flows.
-* **Home Page**: A visually rich landing page with featured items, daily recommendations, and search.
-* **Categories Page**: Visual category selectors for browsing specific craft groups.
-* **Handicraft Items Listing**: Filterable product lists with clean grid layouts.
-* **Product Details Page**: A tactile interface showcasing craft description, creator bio, ratings, and checkout triggers.
-* **Wishlist**: A dedicated section to save favorite handicrafts.
-* **Shopping Cart & Checkout**: A multi-step flow from basket review to shipping and payment configurations.
-* **Order Success Screen**: A neat confirmation window.
-
-### 💼 Admin Section
-* **Analytics Dashboard**: Central control panel with widgets tracking total revenue, sales volume, and customer traffic.
-* **Inventory Control & Management**: Real-time product inventory tables showing status tags, pricing, and stock levels.
-* **Product Editing & Addition**: Detailed forms to update or create handicraft items, configure metadata, and manage image assets.
+The design phase of this project is now **fully completed**. High-fidelity UI/UX specifications have been developed in Figma, covering both the **User (Customer) Section** and the **Store Admin Section**, with all essential features implemented to guide the upcoming **.NET implementation**.
 
 ---
 
-## 🔗 Figma Prototype & Design Links
+## 🔗 Figma Prototype & Design Link
 
-Explore the complete interactive design prototype and inspect design specs below.
+Explore the complete interactive design prototype for both the User and Admin sections:
 
-* **⚡ Live Interactive Prototype (Full App)**: [Launch Figma Prototype](https://www.figma.com/proto/S5bQWaqh9je6CCEzaqppYL/DevArt-Flutter-App?node-id=2-273&p=f&t=6NYSDUl090e1h4K4-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A273&device-frame=0)
-* **🎨 Figma Design Workspace (Dev Mode)**: [Open Figma Design Link](https://www.figma.com/design/S5bQWaqh9je6CCEzaqppYL/DevArt-Flutter-App?node-id=0-1&m=dev&t=6NYSDUl090e1h4K4-1)
+* **⚡ Live Interactive Prototype**: [Launch Figma Prototype](https://www.figma.com/proto/m7cDokzMiorS3tfrNO6bFe/DevArt-.NET-project?node-id=53-2&p=f&t=OUpyDVe3yAo1aCtE-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A478&show-proto-sidebar=1)
 
 ---
 
@@ -40,99 +18,78 @@ Explore the complete interactive design prototype and inspect design specs below
 
 ```text
 ├── figma/
-│   ├── design_link.md        # Interactive Figma prototype & workspace links
-│   ├── Home Page.png         # Exported homepage UI mockup
-│   └── assets/               # Exported high-fidelity UI screens & flows
-│       ├── customer_section.png
-│       ├── customer_navigation.png
-│       ├── admin_section.png
-│       └── admin_navigation.png
-│
-├── README.md
-└── .gitignore
+│   ├── design_link.md        # Interactive Figma prototype link
+│   └── Home Page.png         # Desktop Home Page layout preview
+├── README.md                 # Project documentation and specifications
+└── .gitignore                # Standard .NET gitignore file
 ```
 
 ---
 
-## 🗺️ Design Architecture & Flow Layers
+## 🗺️ Completed Design Architecture
 
-The application's design is structured into four interactive layers depicting the user layouts and control routes:
+The DevArt website design is structured into two main divisions, covering all the workflows and features required for a robust e-commerce platform:
 
-### 🛍️ Layer 1: Customer Section
-The user interface details the clean customer shopping experience, including cart handling, account details, and active vouchers.
+### 🛍️ 1. User (Customer) Section
+Designed to deliver a clean, intuitive, and conversion-optimized storefront for users.
+* **Authentication**: Responsive signup and login forms.
+* **Homepage**: A welcoming interface showcasing featured crafts, search functionality, and curated category collections.
+* **Product Catalog & Details**: Grid listings of products with category filters, sorting options, and dynamic details page including images, description, rating, price, and "Add to Cart" actions.
+* **Cart & Checkout Process**: A clean shopping cart manager leading to a multi-stage checkout form (Shipping, Billing, Payment).
+* **User Profile & Order Management**: Personalized dashboard displaying user profile details, active wishlists, current order status, and historical purchase data.
 
-![Customer Section](figma/assets/customer_section.png)
-
----
-
-### 💼 Layer 2: Admin Section
-The store owner interface provides centralized analytics, inventory lists, and tools to list new items.
-
-![Admin Section](figma/assets/admin_section.png)
-
----
-
-### 🛣️ Layer 3: Customer Navigation Flow
-This layout diagrams the interactive path and transition routes designed for the customer's shopping journey.
-
-![Customer Navigation](figma/assets/customer_navigation.png)
+### 💼 2. Store Admin Section
+Designed to give store administrators full visibility and control over products, sales, and orders.
+* **Admin Dashboard**: Visual analytics panel tracking sales metrics, total revenue, top-selling items, and quick action widgets.
+* **Product & Inventory Management**: Fully designed interface to view active stock, edit existing product listings, configure prices, and publish new handicraft products with descriptions and images.
+* **Order Management**: Panel to view incoming customer orders, manage fulfillment stages, and process returns or cancellations.
+* **User Overview**: Database interface to review registered user accounts and simple customer insights.
 
 ---
 
-### ⚙️ Layer 4: Admin Navigation Flow
-This diagrams the administrative routes connecting the dashboard, inventory management, and product editor.
+## 🎨 Design Highlights & Visual Identity
 
-![Admin Navigation](figma/assets/admin_navigation.png)
-
----
-
-# 🎨 Design Highlights & Visual Identity
-
-DevArt follows a premium visual language combining **Tactile Minimalism** and **Soft Organicism**:
+The website follows a premium visual language based on **Tactile Minimalism** and **Organic Aesthetics**:
 
 * **Earthy Color Palette**:
-  - **Primary Earthy Brown**: `#8B5E3C` (Brand buttons, key highlights)
-  - **Secondary Soft Blue**: `#A9C7EB` (Chips, status tags, soft highlights)
-  - **Scaffold Background**: `#F8F9FA` (Off-white, premium, organic look)
+  - **Primary Earthy Brown**: `#8B5E3C` (Primary CTA buttons, navigation highlights, brand focus)
+  - **Secondary Soft Blue**: `#A9C7EB` (Tags, badges, interactive states)
+  - **Clean Background**: `#F8F9FA` (Soft off-white canvas for products)
 * **Modern Typography**:
-  - **Headings**: `DM Sans` (Geometric & bold)
-  - **Body / UI Text**: `Work Sans` (Highly readable, neutral)
-* **Spacing**: 8px baseline rhythm with 20px screen margins.
-* **Shapes**: Soft, organic corner radiuses (12px–20px) on cards, inputs, and actions.
+  - **Headings**: `DM Sans` (Clean, geometric, bold headlines)
+  - **Body Text**: `Work Sans` (Highly legible, crisp body layout)
+* **Shapes & Visual Depth**:
+  - Spacious layouts with clean 8px baseline margins.
+  - Tactile elements featuring soft 12px–20px corner radiuses and subtle drop shadows.
 
 ---
 
-# 🚀 Planned Development
+## 🛠️ Planned Development Stack
 
-The UI designs will be implemented using Microsoft's .NET technologies to build a robust web application.
-
-Proposed technology stack:
-- **Backend / Frontend**: ASP.NET Core (MVC, Razor Pages, or Blazor)
-- **Database**: Entity Framework Core & SQL Server
-- **Authentication**: ASP.NET Core Identity / JWT
+The completed designs serve as the blueprint for the web application's development phase:
+- **Web Frontend / Backend**: ASP.NET Core (MVC, Razor Pages, or Blazor Server/WebAssembly)
+- **Database / ORM**: Entity Framework Core & SQL Server
+- **Authentication**: ASP.NET Core Identity (with cookie or token-based authorization)
 
 ---
 
-# 🎯 Project Status
+## 🎯 Project Status
 
-| Module | Status |
-|---------|--------|
-| **UI/UX Design Phase** | ✅ **Completed** |
-| **Customer/User Section** | ✅ **Completed** |
-| **Store Admin Section** | ✅ **Completed** |
-| **Interactive Flows & Navigation Maps** | ✅ **Completed** |
-| **.NET Development** | 🚧 Planned (Implementation Phase) |
+All core modules have been fully designed, marking the UI/UX stage complete.
 
----
-
-# 🌟 Future Roadmap
-
-- [ ] User Authentication & Access Controls
-- [ ] Database Schema & EF Core Integration
-- [ ] Product Catalog & Advanced Search API
-- [ ] Payment Gateway Integration (Stripe/PayPal)
-- [ ] Admin Control Panels & Analytics Reporting
-- [ ] Responsive Web Layout Deployment
+| Module / Screen | Section | Design Status | Development Status |
+|:---|:---:|:---:|:---:|
+| **UI/UX Design Phase** | Overall | ✅ Completed | - |
+| **Authentication System** | User | ✅ Completed | 🚧 Planned |
+| **Homepage & Search** | User | ✅ Completed | 🚧 Planned |
+| **Product Listings & Details** | User | ✅ Completed | 🚧 Planned |
+| **Wishlist & Cart Management** | User | ✅ Completed | 🚧 Planned |
+| **Checkout & Order Success** | User | ✅ Completed | 🚧 Planned |
+| **User Profile & Orders List** | User | ✅ Completed | 🚧 Planned |
+| **Admin Dashboard Analytics** | Admin | ✅ Completed | 🚧 Planned |
+| **Inventory & Product CRUD** | Admin | ✅ Completed | 🚧 Planned |
+| **Admin Order Management** | Admin | ✅ Completed | 🚧 Planned |
+| **.NET Application Setup** | Infrastructure | - | 🚧 Planned |
 
 ---
 
