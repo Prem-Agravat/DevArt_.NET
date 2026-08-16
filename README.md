@@ -19,31 +19,72 @@ Explore the complete interactive design prototype for both the User and Admin se
 ```text
 ├── figma/
 │   ├── design_link.md        # Interactive Figma prototype link
-│   └── Home Page.png         # Desktop Home Page layout preview
+│   └── assets/               # Exported high-fidelity UI screenshots
+│       ├── homepage.png
+│       ├── categories.png
+│       ├── collection.png
+│       ├── offers.png
+│       └── admin_dashboard.png
 ├── README.md                 # Project documentation and specifications
 └── .gitignore                # Standard .NET gitignore file
 ```
 
 ---
 
+## 🖼️ Completed UI Showcase
+
+Below are the actual high-fidelity website designs for both the customer-facing storefront and the store admin dashboard:
+
+### 🏠 1. Homepage
+A visually rich and tactile landing page with a hero banner featuring artisanal goods, a categories navigator, and featured items.
+
+![DevArt Homepage](figma/assets/homepage.png)
+
+---
+
+### 📂 2. Categories
+An organized category showcase designed to help users browse specific crafts such as Torans, Cushion Covers, Sofa Covers, and Bedsheets.
+
+![DevArt Categories](figma/assets/categories.png)
+
+---
+
+### 🛍️ 3. Our Collection (Catalog)
+A comprehensive product catalog grid complete with filters (by categories like Torans, Cushion Covers, Bedsheet) and price tags.
+
+![DevArt Our Collection](figma/assets/collection.png)
+
+---
+
+### 🎟️ 4. Offers & Wishlist
+A dedicated interface displaying available discount coupons (e.g., Free Shipping, Welcome Gift) and user rewards alongside redemption guides.
+
+![DevArt Offers](figma/assets/offers.png)
+
+---
+
+### 💼 5. Store Admin Panel
+A clean administrative interface featuring real-time overview metrics (Total Sales, Total Orders, Customers, Active Orders) and a recent orders log.
+
+![DevArt Admin Dashboard](figma/assets/admin_dashboard.png)
+
+---
+
 ## 🗺️ Completed Design Architecture
 
-The DevArt website design is structured into two main divisions, covering all the workflows and features required for a robust e-commerce platform:
+The DevArt website design covers all essential e-commerce workflows:
 
-### 🛍️ 1. User (Customer) Section
-Designed to deliver a clean, intuitive, and conversion-optimized storefront for users.
+### 🛍️ User (Customer) Flow
 * **Authentication**: Responsive signup and login forms.
-* **Homepage**: A welcoming interface showcasing featured crafts, search functionality, and curated category collections.
-* **Product Catalog & Details**: Grid listings of products with category filters, sorting options, and dynamic details page including images, description, rating, price, and "Add to Cart" actions.
-* **Cart & Checkout Process**: A clean shopping cart manager leading to a multi-stage checkout form (Shipping, Billing, Payment).
-* **User Profile & Order Management**: Personalized dashboard displaying user profile details, active wishlists, current order status, and historical purchase data.
+* **Homepage**: Hero banners, category quick-links, and search bar.
+* **Catalog & Filtering**: Checkbox filters, product grids, and sorting.
+* **Detail & Purchase**: Detailed product pages with descriptions, prices, and checkout actions.
+* **Offers & Coupons**: Code listings with interactive discount codes.
 
-### 💼 2. Store Admin Section
-Designed to give store administrators full visibility and control over products, sales, and orders.
-* **Admin Dashboard**: Visual analytics panel tracking sales metrics, total revenue, top-selling items, and quick action widgets.
-* **Product & Inventory Management**: Fully designed interface to view active stock, edit existing product listings, configure prices, and publish new handicraft products with descriptions and images.
-* **Order Management**: Panel to view incoming customer orders, manage fulfillment stages, and process returns or cancellations.
-* **User Overview**: Database interface to review registered user accounts and simple customer insights.
+### 💼 Store Admin Flow
+* **Dashboard Analytics**: Real-time sales trackers, customer counts, and overview tables.
+* **Inventory CRUD**: Management interface to view active stock, update prices, and edit products.
+* **Orders Fulfillment**: Admin tables to monitor order IDs, product details, and customer names.
 
 ---
 
