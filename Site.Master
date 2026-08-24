@@ -1,0 +1,172 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="DevArt.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server">
+            DevArt
+        </asp:ContentPlaceHolder>
+    </title>
+
+    <link href="Content/Site.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+
+    <form id="form1" runat="server">
+
+        <header class="site-header">
+
+            <div class="header-container">
+
+                <a href="Default.aspx" class="brand">
+                    <div class="brand-logo">
+                        DA
+                    </div>
+
+                    <span class="brand-name">
+                        Dev Art
+                    </span>
+                </a>
+
+                <nav class="main-nav">
+
+                    <a href="Default.aspx" class="nav-link active">
+                        Home
+                    </a>
+
+                    <a href="Categories.aspx" class="nav-link">
+                        Categories
+                    </a>
+
+                    <a href="Collection.aspx" class="nav-link">
+                        Our Collection
+                    </a>
+
+                    <a href="Offers.aspx" class="nav-link">
+                        Offers
+                    </a>
+
+                    <a href="About.aspx" class="nav-link">
+                        About
+                    </a>
+
+                </nav>
+
+                <div class="header-actions">
+
+                    <div class="search-box">
+                        <span class="search-icon">⌕</span>
+
+                        <asp:TextBox
+                            ID="txtSearch"
+                            runat="server"
+                            CssClass="search-input"
+                            placeholder="Search decor...">
+                        </asp:TextBox>
+                    </div>
+
+                    <a href="Cart.aspx" class="header-icon">
+                        🛍
+                    </a>
+
+                    <a href="Profile.aspx" class="header-icon">
+                        ♙
+                    </a>
+
+                    <a href="Login.aspx" class="login-button">
+                        Login/Registration
+                    </a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+
+        <footer class="site-footer">
+
+            <div class="footer-container">
+
+                <div class="footer-column footer-about">
+
+                    <h3>DevArt Home</h3>
+
+                    <p>
+                        Curating thoughtful spaces through
+                        beautiful design and sustainable
+                        craftsmanship.
+                    </p>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Company</h3>
+
+                    <a href="About.aspx">About Us</a>
+                    <a href="#">Sustainability</a>
+                    <a href="#">Store Locator</a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Support</h3>
+
+                    <a href="#">Shipping & Returns</a>
+                    <a href="Contact.aspx">Contact</a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Follow Us</h3>
+
+                    <div class="social-icons">
+                        <a href="#">f</a>
+                        <a href="#">◎</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>
+                    © 2026 DevArt Home Decor. All rights reserved.
+                </p>
+
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+
+            </div>
+
+        </footer>
+
+    </form>
+
+</body>
+</html>
