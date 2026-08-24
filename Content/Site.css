@@ -62,6 +62,14 @@ a {
     letter-spacing: 0.5px;
 }
 
+.brand-logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #8B5E3C;
+}
+
 .brand-name {
     font-size: 17px;
     font-weight: 700;
@@ -772,4 +780,60 @@ h1, h2, h3, h4, h5, h6 {
     .hero-title {
         font-size: 22px;
     }
+}
+
+/* ==========================================================================
+   About Page Styles
+   ========================================================================== */
+
+.about-section {
+    padding: 60px 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-container {
+    text-align: center;
+}
+
+.about-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1c1c1c;
+    margin: 0 0 12px;
+}
+
+.about-subtitle {
+    font-size: 15px;
+    color: #666666;
+    margin: 0 0 40px;
+    line-height: 1.5;
+}
+
+.about-content-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #f0f0ef;
+    text-align: left;
+}
+
+.about-content-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8B5E3C;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.about-content-card h3:not(:first-of-type) {
+    margin-top: 28px;
+}
+
+.about-content-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0;
 }
