@@ -1,11 +1,11 @@
-<%@ Page Title="About" Language="C#" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="DevArt.About" %>
+<%@ Page Title="Our Collection" Language="C#" AutoEventWireup="true" CodeBehind="Collection.aspx.cs" Inherits="DevArt.Collection" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DevArt - About Us</title>
+    <title>DevArt - Our Collection</title>
     <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,9 +22,9 @@
                 <nav class="main-nav">
                     <a href="Default.aspx" class="nav-link">Home</a>
                     <a href="Categories.aspx" class="nav-link">Categories</a>
-                    <a href="Collection.aspx" class="nav-link">Our Collection</a>
+                    <a href="Collection.aspx" class="nav-link active">Our Collection</a>
                     <a href="Offers.aspx" class="nav-link">Offers</a>
-                    <a href="About.aspx" class="nav-link active">About</a>
+                    <a href="About.aspx" class="nav-link">About</a>
                 </nav>
 
                 <div class="header-actions">
@@ -60,18 +60,11 @@
         <main class="home-page">
             <section class="about-section">
                 <div class="about-container">
-                    <h1 class="about-title">About DevArt</h1>
-                    <p class="about-subtitle">Curating tranquil spaces through thoughtful design and sustainable craftsmanship.</p>
+                    <h1 class="about-title">Our Collection</h1>
+                    <p class="about-subtitle">Artisanal products designed for peaceful living.</p>
                     
-                    <div class="about-content-card">
-                        <h3>Our Philosophy</h3>
-                        <p>At DevArt, we believe that your home should be a reflection of your soul—a peaceful sanctuary curated with thoughtful craftsmanship and premium design. Established in 2024, our mission is to bring together the finest artisanal handicrafts, tactile home textiles, and organic aesthetics to create serene dwellings.</p>
-                        
-                        <h3>Sustainable Craftsmanship</h3>
-                        <p>We work directly with local artisans across regions to source authentic, handmade pieces. From our intricately embroidered Torans to cotton Bed Sheets and plush Sofa Covers, every product tells a story of heritage, skill, and environmental responsibility. We focus on natural materials, low-impact dyes, and fair wage practices.</p>
-
-                        <h3>Meet Our Team</h3>
-                        <p>Our team consists of passionate interior designers, craft specialists, and technology enthusiasts working together to build a seamless e-commerce platform that connects you to unique global crafts. Thank you for supporting sustainable art and choosing DevArt to elevate your sanctuary.</p>
+                    <div class="about-content-card" style="text-align: center;">
+                        <p>Explore our premium handmade e-commerce catalog of authentic crafts. Items can be added to your wishlist and shopping cart.</p>
                     </div>
                 </div>
             </section>
