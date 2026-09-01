@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="DevArt.Admin.AdminMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">DevArt Admin</asp:ContentPlaceHolder></title>
+    <link href="<%= ResolveUrl("~/Content/Site.css") %>" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="admin-body">
+
+            <aside class="admin-side">
+                <div class="admin-brand">
+                    <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                    <span>Dev Art Admin</span>
+                </div>
+                <div class="who">
+                    Welcome back, Admin.<br />
+                    <asp:Literal ID="litAdminEmail" runat="server" />
+                </div>
+
+                <a href="Dashboard.aspx" class="<%= NavClass("Dashboard") %>">Dashboard</a>
+                <a href="Inventory.aspx" class="<%= NavClass("Inventory") %>">Inventory</a>
+                <a href="Orders.aspx" class="<%= NavClass("Orders") %>">Orders</a>
+                <a href="Offers.aspx" class="<%= NavClass("Offers") %>">Offers</a>
+                <a href="Customers.aspx" class="<%= NavClass("Customers") %>">Customers</a>
+
+                <div class="spacer"></div>
+
+                <a href="<%= ResolveUrl("~/Default.aspx") %>">Back To Website</a>
+                <asp:LinkButton ID="btnLogout" runat="server" CausesValidation="false"
+                    OnClick="btnLogout_Click" Text="Sign out" />
+            </aside>
+
+            <div class="admin-main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>
