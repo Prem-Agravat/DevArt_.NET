@@ -1,0 +1,547 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="DevArt.SiteMaster" %>
+<%@ Import Namespace="DevArt.Models" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">DevArt</asp:ContentPlaceHolder></title>
+    <link href="<%= ResolveUrl("~/Content/Site.css") %>" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Header -->
+        <header class="site-header">
+            <div class="header-container">
+                <a href="<%= ResolveUrl("~/Default.aspx") %>" class="brand">
+                    <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="Dev Art Logo" class="brand-logo-img" />
+                    <span class="brand-name">Dev Art</span>
+                </a>
+
+                <nav class="main-nav">
+                    <a href="Default.aspx" class="nav-link <%= NavClass("Default") %>">Home</a>
+                    <a href="Categories.aspx" class="nav-link <%= NavClass("Categories") %>">Categories</a>
+                    <a href="Collection.aspx" class="nav-link <%= NavClass("Collection") %>">Our Collection</a>
+                    <a href="Offers.aspx" class="nav-link <%= NavClass("Offers") %>">Offers</a>
+                    <a href="About.aspx" class="nav-link <%= NavClass("About") %>">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="search-box">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" placeholder="Search decor..."></asp:TextBox>
+                    </div>
+
+                    <a href="Wishlist.aspx" class="header-icon" title="Wishlist">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <asp:Literal ID="litWishCount" runat="server" />
+                    </a>
+
+                    <a href="Cart.aspx" class="header-icon" title="Cart">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <asp:Literal ID="litCartCount" runat="server" />
+                    </a>
+
+                    <a href="Profile.aspx" class="header-icon" title="Profile">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
+
+                    <asp:HyperLink ID="lnkAuth" runat="server" CssClass="login-button" NavigateUrl="~/Profile.aspx" Text="My Account" Visible="false" />
+                    <button type="button" id="btnOpenAuthModal" class="login-button" onclick="openAuthModal('login')">Login / Register</button>
+                </div>
+            </div>
+        </header>
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-column footer-about">
+                    <h3>DevArt Home</h3>
+                    <p>Curating tranquil spaces through thoughtful design and sustainable craftsmanship since 2024.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <a href="About.aspx">About Us</a>
+                    <a href="About.aspx#sustainability">Sustainability</a>
+                    <a href="Contact.aspx">Store Locator</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <a href="MyOrders.aspx">Shipping &amp; Returns</a>
+                    <a href="Contact.aspx">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Website">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DevArt Home Decor. All rights reserved.</p>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+        <%-- =====================================================================
+             AUTH MODAL — Login & Register in one overlay (no page navigation)
+             ===================================================================== --%>
+        <div id="authModal" class="auth-modal-backdrop" onclick="closeAuthModalBackdrop(event)">
+            <div class="auth-modal-box">
+
+                <%-- Close button --%>
+                <button type="button" class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close">&times;</button>
+
+                <%-- Tab switcher --%>
+                <div class="auth-tabs">
+                    <button type="button" id="tabLoginBtn"  class="auth-tab active" onclick="switchTab('login')">Login</button>
+                    <button type="button" id="tabRegisterBtn" class="auth-tab" onclick="switchTab('register')">Register</button>
+                </div>
+
+                <%-- ==================== LOGIN PANEL ==================== --%>
+                <div id="panelLogin" class="auth-panel">
+                    <asp:Panel ID="pnlLoginCard" runat="server" DefaultButton="btnModalLogin">
+
+                        <div class="auth-logo">
+                            <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                            <span>Dev Art</span>
+                        </div>
+                        <h2 class="auth-modal-title">Welcome back</h2>
+                        <p class="auth-modal-lead">Sign in to track orders and check out faster.</p>
+
+                        <asp:Panel ID="pnlLoginMsg" runat="server" Visible="false" CssClass="form-alert success" style="margin-bottom:12px;">
+                            <asp:Literal ID="litLoginMsg" runat="server" />
+                        </asp:Panel>
+
+                        <asp:ValidationSummary ID="vsModalLogin" runat="server"
+                            ValidationGroup="ModalLogin"
+                            CssClass="validation-summary"
+                            HeaderText="Please correct the following:"
+                            DisplayMode="BulletList" />
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <label>Email<span class="req">*</span></label>
+                            <asp:TextBox ID="mtxtEmail" runat="server" CssClass="form-input"
+                                TextMode="Email" placeholder="Enter your email" />
+                            <asp:RequiredFieldValidator ID="mrfvEmail" runat="server"
+                                ControlToValidate="mtxtEmail" ValidationGroup="ModalLogin"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Email is required."
+                                Text="Email is required." />
+                            <asp:RegularExpressionValidator ID="mrevEmail" runat="server"
+                                ControlToValidate="mtxtEmail" ValidationGroup="ModalLogin"
+                                CssClass="field-error" Display="Dynamic"
+                                ValidationExpression="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,10}$"
+                                ErrorMessage="Enter a valid email address."
+                                Text="Enter a valid email address." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <label>Password<span class="req">*</span></label>
+                            <asp:TextBox ID="mtxtPassword" runat="server" CssClass="form-input"
+                                TextMode="Password" placeholder="Enter your password" />
+                            <asp:RequiredFieldValidator ID="mrfvPassword" runat="server"
+                                ControlToValidate="mtxtPassword" ValidationGroup="ModalLogin"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Password is required."
+                                Text="Password is required." />
+                            <asp:CustomValidator ID="mcvCredentials" runat="server"
+                                ValidationGroup="ModalLogin" CssClass="field-error" Display="Dynamic"
+                                OnServerValidate="mcvCredentials_ServerValidate"
+                                ErrorMessage="Email and password do not match any DevArt account."
+                                Text="Email and password do not match." />
+                        </div>
+
+                        <div class="auth-row" style="margin-bottom:18px;">
+                            <asp:CheckBox ID="mchkRemember" runat="server" Text="Remember me" />
+                            <a href="#" onclick="switchTab('forgot'); return false;">Forgot password?</a>
+                        </div>
+
+                        <asp:Button ID="btnModalLogin" runat="server" Text="Login"
+                            CssClass="newsletter-btn auth-submit"
+                            ValidationGroup="ModalLogin"
+                            OnClick="btnModalLogin_Click" />
+
+                        <p class="auth-foot" style="margin-top:14px;">Don&#39;t have an account?
+                            <a href="#" onclick="switchTab('register'); return false;">Sign up</a></p>
+                    </asp:Panel>
+                </div>
+
+                <%-- ==================== REGISTER PANEL ==================== --%>
+                <div id="panelRegister" class="auth-panel" style="display:none;">
+
+                    <script type="text/javascript">
+                        function mValidatePasswordStrength(sender, args) {
+                            var v = args.Value || "";
+                            args.IsValid = v.length >= 8 && v.length <= 20 &&
+                                !/\s/.test(v) && /[A-Z]/.test(v) && /[a-z]/.test(v) &&
+                                /[0-9]/.test(v) && /[!@#$%^&*()_\-+=[\]{};:,.?]/.test(v);
+                        }
+                        function mValidateTerms(sender, args) {
+                            var box = document.getElementById(sender.getAttribute("data-terms"));
+                            args.IsValid = box != null && box.checked;
+                        }
+                    </script>
+
+                    <asp:Panel ID="pnlRegCard" runat="server" DefaultButton="btnModalRegister">
+
+                        <div class="auth-logo">
+                            <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                            <span>Dev Art</span>
+                        </div>
+                        <h2 class="auth-modal-title">Create an Account</h2>
+                        <p class="auth-modal-lead">Join our community of artisans and collectors.</p>
+
+                        <asp:ValidationSummary ID="vsModalRegister" runat="server"
+                            ValidationGroup="ModalRegister"
+                            CssClass="validation-summary"
+                            HeaderText="Please fix these details:"
+                            DisplayMode="BulletList" />
+
+                        <div class="form-field full" style="margin-bottom:12px;">
+                            <label>Full Name<span class="req">*</span></label>
+                            <asp:TextBox ID="mrtxtName" runat="server" CssClass="form-input" placeholder="Your full name" />
+                            <asp:RequiredFieldValidator ID="mrfvName" runat="server"
+                                ControlToValidate="mrtxtName" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Full name is required."
+                                Text="Full name is required." />
+                            <asp:RegularExpressionValidator ID="mrrevName" runat="server"
+                                ControlToValidate="mrtxtName" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ValidationExpression="^[A-Za-z][A-Za-z\.\s]{2,49}$"
+                                ErrorMessage="Name must be 3-50 letters."
+                                Text="Name must be 3-50 letters." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:12px;">
+                            <label>Email<span class="req">*</span></label>
+                            <asp:TextBox ID="mrtxtEmail" runat="server" CssClass="form-input"
+                                TextMode="Email" placeholder="you@example.com" />
+                            <asp:RequiredFieldValidator ID="mrfvREmail" runat="server"
+                                ControlToValidate="mrtxtEmail" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Email is required."
+                                Text="Email is required." />
+                            <asp:RegularExpressionValidator ID="mrrevEmail" runat="server"
+                                ControlToValidate="mrtxtEmail" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ValidationExpression="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,10}$"
+                                ErrorMessage="Enter a valid email address."
+                                Text="Enter a valid email address." />
+                            <asp:CustomValidator ID="mrcvEmail" runat="server"
+                                ControlToValidate="mrtxtEmail" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                OnServerValidate="mrcvEmail_ServerValidate"
+                                ErrorMessage="An account with this email already exists."
+                                Text="This email is already registered." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:12px;">
+                            <label>Password<span class="req">*</span></label>
+                            <asp:TextBox ID="mrtxtPassword" runat="server" CssClass="form-input"
+                                TextMode="Password" placeholder="8-20 chars, A-Z a-z 0-9 symbol" />
+                            <asp:RequiredFieldValidator ID="mrfvRPassword" runat="server"
+                                ControlToValidate="mrtxtPassword" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Password is required."
+                                Text="Password is required." />
+                            <asp:CustomValidator ID="mrcvPasswordStrength" runat="server"
+                                ControlToValidate="mrtxtPassword" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ClientValidationFunction="mValidatePasswordStrength"
+                                OnServerValidate="mrcvPasswordStrength_ServerValidate"
+                                ErrorMessage="Password needs 8-20 chars with uppercase, lowercase, digit and symbol."
+                                Text="Use 8-20 chars with A-Z, a-z, 0-9 and a symbol." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:12px;">
+                            <label>Confirm Password<span class="req">*</span></label>
+                            <asp:TextBox ID="mrtxtConfirm" runat="server" CssClass="form-input"
+                                TextMode="Password" placeholder="Re-type password" />
+                            <asp:RequiredFieldValidator ID="mrfvConfirm" runat="server"
+                                ControlToValidate="mrtxtConfirm" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Please confirm your password."
+                                Text="Please confirm your password." />
+                            <asp:CompareValidator ID="mrcmpPassword" runat="server"
+                                ControlToValidate="mrtxtConfirm" ControlToCompare="mrtxtPassword"
+                                Operator="Equal" Type="String" ValidationGroup="ModalRegister"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Passwords do not match."
+                                Text="Passwords do not match." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <div class="form-check">
+                                <asp:CheckBox ID="mrchkTerms" runat="server" Text="I agree to the Terms &amp; Conditions" />
+                            </div>
+                            <asp:CustomValidator ID="mrcvTerms" runat="server"
+                                ValidationGroup="ModalRegister" ValidateEmptyText="true"
+                                CssClass="field-error" Display="Dynamic"
+                                ClientValidationFunction="mValidateTerms"
+                                OnServerValidate="mrcvTerms_ServerValidate"
+                                ErrorMessage="You must accept the Terms &amp; Conditions."
+                                Text="You must accept the terms." />
+                        </div>
+
+                        <asp:Button ID="btnModalRegister" runat="server" Text="Create Account"
+                            CssClass="newsletter-btn auth-submit"
+                            ValidationGroup="ModalRegister"
+                            OnClick="btnModalRegister_Click" />
+
+                        <p class="auth-foot" style="margin-top:14px;">Already have an account?
+                            <a href="#" onclick="switchTab('login'); return false;">Login</a></p>
+                    </asp:Panel>
+                </div>
+
+                <%-- ==================== FORGOT PASSWORD PANEL ==================== --%>
+                <div id="panelForgot" class="auth-panel" style="display:none;">
+                    <asp:Panel ID="pnlForgotCard" runat="server" DefaultButton="btnModalForgot">
+                        <div class="auth-logo">
+                            <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                            <span>Dev Art</span>
+                        </div>
+                        <h2 class="auth-modal-title">Reset Password</h2>
+                        <p class="auth-modal-lead">Enter your email and we'll send a code to reset it.</p>
+
+                        <asp:ValidationSummary ID="vsModalForgot" runat="server"
+                            ValidationGroup="ModalForgot"
+                            CssClass="validation-summary"
+                            HeaderText="Please check the following:"
+                            DisplayMode="BulletList" />
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <label>Email Address<span class="req">*</span></label>
+                            <asp:TextBox ID="mfEmail" runat="server" CssClass="form-input"
+                                TextMode="Email" placeholder="you@example.com" />
+                            <asp:RequiredFieldValidator ID="mrfvFEmail" runat="server"
+                                ControlToValidate="mfEmail" ValidationGroup="ModalForgot"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Email is required."
+                                Text="Email is required." />
+                            <asp:CustomValidator ID="mcvFEmail" runat="server"
+                                ControlToValidate="mfEmail" ValidationGroup="ModalForgot"
+                                CssClass="field-error" Display="Dynamic"
+                                OnServerValidate="mcvFEmail_ServerValidate"
+                                ErrorMessage="We couldn't find an account with that email."
+                                Text="Account not found." />
+                        </div>
+
+                        <asp:Button ID="btnModalForgot" runat="server" Text="Send Recovery Code"
+                            CssClass="newsletter-btn auth-submit"
+                            ValidationGroup="ModalForgot"
+                            OnClick="btnModalForgot_Click" />
+
+                        <p class="auth-foot" style="margin-top:14px;">
+                            <a href="#" onclick="switchTab('login'); return false;">&larr; Back to Login</a>
+                        </p>
+                    </asp:Panel>
+                </div>
+
+                <%-- ==================== VERIFY OTP PANEL ==================== --%>
+                <div id="panelOtp" class="auth-panel" style="display:none;">
+                    <asp:Panel ID="pnlOtpCard" runat="server" DefaultButton="btnModalOtp">
+                        <div class="auth-logo">
+                            <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                            <span>Dev Art</span>
+                        </div>
+                        <h2 class="auth-modal-title">Check your email</h2>
+                        <p class="auth-modal-lead">
+                            We sent a 4-digit code to <br />
+                            <strong><asp:Literal ID="mlitOtpEmail" runat="server" /></strong>
+                        </p>
+
+                        <asp:Panel ID="mpnlOtpSent" runat="server" Visible="false" CssClass="form-alert success" style="margin-bottom:12px;">
+                            <asp:Literal ID="mlitOtpMsg" runat="server" />
+                        </asp:Panel>
+
+                        <asp:ValidationSummary ID="vsModalOtp" runat="server"
+                            ValidationGroup="ModalOtp"
+                            CssClass="validation-summary"
+                            HeaderText="Error verifying code:"
+                            DisplayMode="BulletList" />
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <label>Recovery Code<span class="req">*</span></label>
+                            <asp:TextBox ID="moOtp" runat="server" CssClass="form-input"
+                                placeholder="4-digit code" MaxLength="4" />
+                            <asp:RequiredFieldValidator ID="mrfvOtp" runat="server"
+                                ControlToValidate="moOtp" ValidationGroup="ModalOtp"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Code is required."
+                                Text="Code is required." />
+                            <asp:CustomValidator ID="mcvOtp" runat="server"
+                                ControlToValidate="moOtp" ValidationGroup="ModalOtp"
+                                CssClass="field-error" Display="Dynamic"
+                                OnServerValidate="mcvOtp_ServerValidate"
+                                ErrorMessage="The code is incorrect or has expired."
+                                Text="Invalid or expired code." />
+                        </div>
+
+                        <asp:Button ID="btnModalOtp" runat="server" Text="Verify Code"
+                            CssClass="newsletter-btn auth-submit"
+                            ValidationGroup="ModalOtp"
+                            OnClick="btnModalOtp_Click" />
+
+                        <p class="auth-foot" style="margin-top:14px;">
+                            Didn't get it? <asp:LinkButton ID="btnModalOtpResend" runat="server" CausesValidation="false" OnClick="btnModalOtpResend_Click">Resend code</asp:LinkButton><br />
+                            <a href="#" onclick="switchTab('login'); return false;">&larr; Back to Login</a>
+                        </p>
+                    </asp:Panel>
+                </div>
+
+                <%-- ==================== RESET PASSWORD PANEL ==================== --%>
+                <div id="panelReset" class="auth-panel" style="display:none;">
+                    <asp:Panel ID="pnlResetCard" runat="server" DefaultButton="btnModalReset">
+                        <div class="auth-logo">
+                            <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
+                            <span>Dev Art</span>
+                        </div>
+                        <h2 class="auth-modal-title">New Password</h2>
+                        <p class="auth-modal-lead">Create a new, strong password.</p>
+
+                        <asp:ValidationSummary ID="vsModalReset" runat="server"
+                            ValidationGroup="ModalReset"
+                            CssClass="validation-summary"
+                            HeaderText="Please check the following:"
+                            DisplayMode="BulletList" />
+
+                        <div class="form-field full" style="margin-bottom:12px;">
+                            <label>New Password<span class="req">*</span></label>
+                            <asp:TextBox ID="mrstPassword" runat="server" CssClass="form-input"
+                                TextMode="Password" placeholder="8-20 chars, A-Z a-z 0-9 symbol" />
+                            <asp:RequiredFieldValidator ID="mrfvRstPassword" runat="server"
+                                ControlToValidate="mrstPassword" ValidationGroup="ModalReset"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Password is required."
+                                Text="Password is required." />
+                            <asp:CustomValidator ID="mcvRstStrength" runat="server"
+                                ControlToValidate="mrstPassword" ValidationGroup="ModalReset"
+                                CssClass="field-error" Display="Dynamic"
+                                ClientValidationFunction="mValidatePasswordStrength"
+                                OnServerValidate="mcvRstStrength_ServerValidate"
+                                ErrorMessage="Password needs 8-20 chars with uppercase, lowercase, digit and symbol."
+                                Text="Use 8-20 chars with A-Z, a-z, 0-9 and a symbol." />
+                            <asp:CustomValidator ID="mcvRstNotReused" runat="server"
+                                ControlToValidate="mrstPassword" ValidationGroup="ModalReset"
+                                CssClass="field-error" Display="Dynamic"
+                                OnServerValidate="mcvRstNotReused_ServerValidate"
+                                ErrorMessage="You cannot reuse your current password."
+                                Text="Cannot reuse old password." />
+                        </div>
+
+                        <div class="form-field full" style="margin-bottom:14px;">
+                            <label>Confirm Password<span class="req">*</span></label>
+                            <asp:TextBox ID="mrstConfirm" runat="server" CssClass="form-input"
+                                TextMode="Password" placeholder="Re-type password" />
+                            <asp:RequiredFieldValidator ID="mrfvRstConfirm" runat="server"
+                                ControlToValidate="mrstConfirm" ValidationGroup="ModalReset"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Please confirm your password."
+                                Text="Please confirm your password." />
+                            <asp:CompareValidator ID="mcmpRstPassword" runat="server"
+                                ControlToValidate="mrstConfirm" ControlToCompare="mrstPassword"
+                                Operator="Equal" Type="String" ValidationGroup="ModalReset"
+                                CssClass="field-error" Display="Dynamic"
+                                ErrorMessage="Passwords do not match."
+                                Text="Passwords do not match." />
+                        </div>
+
+                        <asp:Button ID="btnModalReset" runat="server" Text="Update Password"
+                            CssClass="newsletter-btn auth-submit"
+                            ValidationGroup="ModalReset"
+                            OnClick="btnModalReset_Click" />
+                    </asp:Panel>
+                </div>
+
+            </div><%-- .auth-modal-box --%>
+        </div><%-- #authModal --%>
+
+        <script type="text/javascript">
+            // --- modal open/close ---
+            function openAuthModal(tab) {
+                document.getElementById('authModal').classList.add('open');
+                document.body.classList.add('modal-open');
+                switchTab(tab || 'login');
+            }
+            function closeAuthModal() {
+                document.getElementById('authModal').classList.remove('open');
+                document.body.classList.remove('modal-open');
+            }
+            function closeAuthModalBackdrop(e) {
+                if (e.target === document.getElementById('authModal')) closeAuthModal();
+            }
+
+            // --- tab switcher ---
+            function switchTab(tab) {
+                document.getElementById('panelLogin').style.display    = (tab === 'login') ? '' : 'none';
+                document.getElementById('panelRegister').style.display = (tab === 'register') ? '' : 'none';
+                document.getElementById('panelForgot').style.display   = (tab === 'forgot') ? '' : 'none';
+                document.getElementById('panelOtp').style.display      = (tab === 'otp') ? '' : 'none';
+                document.getElementById('panelReset').style.display    = (tab === 'reset') ? '' : 'none';
+
+                // The tab UI buttons only map to login/register.
+                // Hide the tab bar if we're in the forgot password flow.
+                var isAuthFlow = (tab === 'login' || tab === 'register');
+                var tabContainer = document.querySelector('.auth-tabs');
+                if (tabContainer) {
+                    tabContainer.style.display = isAuthFlow ? 'flex' : 'none';
+                }
+
+                if (isAuthFlow) {
+                    document.getElementById('tabLoginBtn').classList.toggle('active', tab === 'login');
+                    document.getElementById('tabRegisterBtn').classList.toggle('active', tab === 'register');
+                }
+            }
+
+            // ESC key to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeAuthModal();
+            });
+
+            // Re-open modal after a failed postback (validators fired)
+            (function () {
+                var openPanel = '<%= (string)(ViewState["ModalOpenPanel"] ?? "") %>';
+                if (openPanel) {
+                    openAuthModal(openPanel);
+                }
+            })();
+        </script>
+
+    </form>
+</body>
+</html>
