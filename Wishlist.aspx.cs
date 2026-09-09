@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -50,7 +50,7 @@ namespace DevArt
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("Default.aspx", false);
         }
 
         private void ShowStatus(string text, bool success)

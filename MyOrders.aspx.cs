@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.UI;
 using DevArt.Models;
@@ -56,7 +56,7 @@ namespace DevArt
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("Default.aspx", false);
         }
     }
 }
