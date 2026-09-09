@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Web.UI;
@@ -164,7 +164,7 @@ namespace DevArt
         {
             // Abandon clears every server-side Session value for this user.
             Session.Abandon();
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("Default.aspx", false);
         }
     }
 }

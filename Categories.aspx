@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categories.aspx.cs" Inherits="DevArt.Categories" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categories.aspx.cs" Inherits="DevArt.Categories" %>
 
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">DevArt - Categories</asp:Content>
 
@@ -18,28 +18,6 @@
                             <span><%# Eval("Count") %> pieces &middot; Explore Collection</span>
                         </div>
                     </a>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
-
-        <h2 class="section-heading">New this season</h2>
-        <div class="product-grid">
-            <asp:Repeater ID="rptNew" runat="server">
-                <ItemTemplate>
-                    <div class="product-card">
-                        <div class="thumb">
-                            <img src='<%# "Images/" + Eval("Image") %>' alt='<%# Eval("Name") %>' />
-                            <span class="flag"><%# Eval("Badge") %></span>
-                        </div>
-                        <div class="body">
-                            <span class="kicker"><%# Server.HtmlEncode(Convert.ToString(Eval("Category"))) %></span>
-                            <span class="name"><%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %></span>
-                            <span class="price">&#8377;<%# Eval("Price", "{0:N0}") %></span>
-                            <div class="card-actions">
-                                <a class="btn-outline btn-small" href='<%# "ProductDetail.aspx?id=" + Eval("Id") %>'>View</a>
-                            </div>
-                        </div>
-                    </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
