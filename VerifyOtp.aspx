@@ -7,15 +7,14 @@
     <main class="auth-shell">
         <asp:Panel ID="pnlCard" runat="server" CssClass="auth-card" DefaultButton="btnVerify">
 
-            <div class="auth-logo">
-                <img src="Images/devart-logo.png" alt="DevArt" />
-                <span>Dev Art</span>
+            <div class="auth-card-logo">
+                <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" />
             </div>
 
-            <h1 class="auth-title">Verify OTP</h1>
-            <p class="auth-lead">
-                Please enter the 4-digit code sent to
-                <strong><asp:Literal ID="litEmail" runat="server" /></strong>.
+            <h1 class="auth-title-serif">Verify OTP</h1>
+            <p class="auth-subtitle-lead">
+                Please enter the 4-digit code sent to<br />
+                <strong style="color: #1a1a1a;"><asp:Literal ID="litEmail" runat="server" /></strong>
             </p>
 
             <asp:Panel ID="pnlMessage" runat="server" Visible="false">
@@ -27,10 +26,10 @@
                 HeaderText="The code could not be verified:" DisplayMode="BulletList" />
 
             <div class="form-grid">
-                <div class="form-field full" style="align-items: center;">
+                <div class="form-field full" style="display: flex; flex-direction: column; align-items: center;">
                     <asp:TextBox ID="txtOtp" runat="server" CssClass="form-input"
                         MaxLength="4" placeholder="1234"
-                        style="width: 160px; text-align: center; font-size: 20px; letter-spacing: 8px;" />
+                        style="width: 180px; text-align: center; font-size: 20px; letter-spacing: 8px; border: 1.5px solid #222; border-radius: 12px; height: 46px;" />
                     <asp:RequiredFieldValidator ID="rfvOtp" runat="server"
                         ControlToValidate="txtOtp" ValidationGroup="Otp"
                         CssClass="field-error" Display="Dynamic"
@@ -42,7 +41,6 @@
                         ValidationExpression="^\d{4}$"
                         ErrorMessage="The code must be exactly 4 digits."
                         Text="The code must be exactly 4 digits." />
-                    <%-- Matching the issued code, and its 10-minute expiry, are server rules. --%>
                     <asp:CustomValidator ID="cvOtp" runat="server"
                         ControlToValidate="txtOtp" ValidationGroup="Otp"
                         CssClass="field-error" Display="Dynamic"
@@ -53,12 +51,13 @@
             </div>
 
             <asp:Button ID="btnVerify" runat="server" Text="Verify"
-                CssClass="newsletter-btn auth-submit"
+                CssClass="auth-submit-btn"
                 ValidationGroup="Otp" OnClick="btnVerify_Click" />
 
-            <p class="auth-foot">
+            <p class="auth-foot" style="margin-top:22px; font-weight: 500;">
                 Didn&#39;t receive the code?
-                <asp:LinkButton ID="btnResend" runat="server" CausesValidation="false" OnClick="btnResend_Click">Resend</asp:LinkButton>
+                <asp:LinkButton ID="btnResend" runat="server" CssClass="auth-link-brown" style="font-weight:700;" CausesValidation="false" OnClick="btnResend_Click">Resend code</asp:LinkButton><br />
+                <a href="Login.aspx" class="auth-link-brown" style="display:inline-block; margin-top:8px;">&larr; Back to Login</a>
             </p>
         </asp:Panel>
     </main>

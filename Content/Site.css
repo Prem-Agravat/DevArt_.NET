@@ -1172,7 +1172,7 @@ textarea.form-input {
     align-items: center;
     justify-content: center;
     padding: 40px 20px 60px;
-    background: linear-gradient(rgba(248, 246, 242, 0.75), rgba(248, 246, 242, 0.85)), url('../Images/auth_bg_full.png') center/cover no-repeat;
+    background: radial-gradient(circle at 50% 30%, #ffffff 0%, #f7f3ed 60%, #ece5db 100%);
 }
 
 .auth-card {
@@ -1355,12 +1355,13 @@ textarea.form-input {
     margin: 0 0 6px;
 }
 
-.auth-lead {
-    font-size: 12.5px;
+.auth-lead,
+.auth-subtitle-lead {
+    font-size: 13px;
     color: #8c8c8c;
     text-align: center;
-    margin: 0 0 26px;
-    line-height: 1.6;
+    margin: 0 0 20px;
+    line-height: 1.5;
 }
 
 .auth-row {
