@@ -27,13 +27,6 @@ namespace DevArt
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentPath = Request.AppRelativeCurrentExecutionFilePath ?? string.Empty;
-            bool isAuthPage = currentPath.IndexOf("Login.aspx", StringComparison.OrdinalIgnoreCase) >= 0
-                           || currentPath.IndexOf("Register.aspx", StringComparison.OrdinalIgnoreCase) >= 0
-                           || currentPath.IndexOf("ForgotPassword.aspx", StringComparison.OrdinalIgnoreCase) >= 0
-                           || currentPath.IndexOf("ResetPassword.aspx", StringComparison.OrdinalIgnoreCase) >= 0
-                           || currentPath.IndexOf("VerifyOtp.aspx", StringComparison.OrdinalIgnoreCase) >= 0;
-
             UserAccount user = CurrentUser;
             if (user != null)
             {
@@ -43,12 +36,6 @@ namespace DevArt
                 lnkAuth.Visible = true;
 
                 // Hide the open-modal button via JavaScript (it is a plain <button>)
-                Page.ClientScript.RegisterStartupScript(GetType(), "hideModalBtn",
-                    "var b=document.getElementById('btnOpenAuthModal');if(b)b.style.display='none';", true);
-            }
-            else if (isAuthPage)
-            {
-                lnkAuth.Visible = false;
                 Page.ClientScript.RegisterStartupScript(GetType(), "hideModalBtn",
                     "var b=document.getElementById('btnOpenAuthModal');if(b)b.style.display='none';", true);
             }
@@ -140,6 +127,28 @@ namespace DevArt
 
             // Refresh the page so the header shows "Hi, Name" without navigating away
             Response.Redirect(Request.Url.AbsoluteUri, false);
+        }
+
+        // ================================================================ MODAL ADMIN LOGIN
+
+        protected void macvCredentials_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            string email = matxtEmail.Text.Trim();
+            string pass = matxtPassword.Text;
+            args.IsValid = string.Equals(email, "admin@devart.com", StringComparison.OrdinalIgnoreCase) && pass == "Admin@123";
+        }
+
+        protected void btnModalAdminLogin_Click(object sender, EventArgs e)
+        {
+            ViewState["ModalOpenPanel"] = "admin";
+
+            Page.Validate("ModalAdminLogin");
+            if (!Page.IsValid) return;
+
+            string email = matxtEmail.Text.Trim();
+            Session["AdminUser"] = email;
+            ViewState["ModalOpenPanel"] = string.Empty;
+            Response.Redirect("~/Admin/Dashboard.aspx", false);
         }
 
         // ================================================================ MODAL REGISTER

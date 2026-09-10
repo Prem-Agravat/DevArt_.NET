@@ -149,6 +149,35 @@ namespace DevArt {
         protected global::System.Web.UI.WebControls.Button btnModalOtp;
         protected global::System.Web.UI.WebControls.LinkButton btnModalOtpResend;
 
+        // ------------------------------------------------------------------ modal admin login
+
+        /// <summary>pnlAdminCard control.</summary>
+        protected global::System.Web.UI.WebControls.Panel pnlAdminCard;
+
+        /// <summary>vsModalAdminLogin control.</summary>
+        protected global::System.Web.UI.WebControls.ValidationSummary vsModalAdminLogin;
+
+        /// <summary>matxtEmail control.</summary>
+        protected global::System.Web.UI.WebControls.TextBox matxtEmail;
+
+        /// <summary>marfvEmail control.</summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator marfvEmail;
+
+        /// <summary>marevEmail control.</summary>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator marevEmail;
+
+        /// <summary>matxtPassword control.</summary>
+        protected global::System.Web.UI.WebControls.TextBox matxtPassword;
+
+        /// <summary>marfvPassword control.</summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator marfvPassword;
+
+        /// <summary>macvCredentials control.</summary>
+        protected global::System.Web.UI.WebControls.CustomValidator macvCredentials;
+
+        /// <summary>btnModalAdminLogin control.</summary>
+        protected global::System.Web.UI.WebControls.Button btnModalAdminLogin;
+
         // ------------------------------------------------------------------ modal reset
 
         protected global::System.Web.UI.WebControls.Panel pnlResetCard;
