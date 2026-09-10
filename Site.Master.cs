@@ -177,7 +177,8 @@ namespace DevArt
 
         protected void mcvFEmail_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            args.IsValid = AppData.FindUserByEmail(args.Value) != null;
+            // Allow sending OTP to any email (registered or unregistered)
+            args.IsValid = true;
         }
 
         protected void btnModalForgot_Click(object sender, EventArgs e)
@@ -197,6 +198,11 @@ namespace DevArt
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
 
+            string mailErr;
+            bool sent = EmailService.SendOtpEmail(email, otp, 5, out mailErr);
+            Session["OtpEmailSent"] = sent;
+            Session["OtpEmailError"] = mailErr;
+
             ShowOtpSentNotice();
             ViewState["ModalOpenPanel"] = "otp";
         }
@@ -207,9 +213,19 @@ namespace DevArt
         {
             mlitOtpEmail.Text = Server.HtmlEncode(Session["ResetEmail"] as string);
             mpnlOtpSent.Visible = true;
-            mlitOtpMsg.Text = "OTP sent - please check your email. " +
-                              "<em>Demo build: your code is <strong>" +
-                              Server.HtmlEncode(Session["ResetOtp"] as string) + "</strong>.</em>";
+            bool emailSent = Session["OtpEmailSent"] is bool && (bool)Session["OtpEmailSent"];
+            string otpCode = Server.HtmlEncode(Session["ResetOtp"] as string);
+
+            if (emailSent)
+            {
+                mlitOtpMsg.Text = "An OTP code has been sent to your email (expires in 5 minutes). " +
+                                  "<em>(Dev fallback code: <strong>" + otpCode + "</strong>)</em>";
+            }
+            else
+            {
+                mlitOtpMsg.Text = "An OTP code was generated (expires in 5 minutes). " +
+                                  "<em>(Dev code: <strong>" + otpCode + "</strong>)</em>";
+            }
         }
 
         protected void mcvOtp_ServerValidate(object source, ServerValidateEventArgs args)
@@ -220,7 +236,7 @@ namespace DevArt
             args.IsValid =
                 !string.IsNullOrEmpty(issued) &&
                 sentAt.HasValue &&
-                DateTime.Now.Subtract(sentAt.Value).TotalMinutes <= 10 &&
+                DateTime.Now.Subtract(sentAt.Value).TotalMinutes <= 5 &&
                 string.Equals(issued, (args.Value ?? string.Empty).Trim(), StringComparison.Ordinal);
         }
 
@@ -240,12 +256,21 @@ namespace DevArt
 
         protected void btnModalOtpResend_Click(object sender, EventArgs e)
         {
+            string email = Session["ResetEmail"] as string;
             string otp = new Random(DateTime.Now.Millisecond).Next(1000, 10000).ToString();
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
             moOtp.Text = string.Empty;
-            ShowOtpSentNotice();
 
+            if (!string.IsNullOrEmpty(email))
+            {
+                string mailErr;
+                bool sent = EmailService.SendOtpEmail(email, otp, 5, out mailErr);
+                Session["OtpEmailSent"] = sent;
+                Session["OtpEmailError"] = mailErr;
+            }
+
+            ShowOtpSentNotice();
             ViewState["ModalOpenPanel"] = "otp";
         }
 
@@ -272,9 +297,9 @@ namespace DevArt
             ViewState["ModalOpenPanel"] = "reset";
 
             bool verified = Session["OtpVerified"] is bool && (bool)Session["OtpVerified"];
-            UserAccount user = TargetResetUser;
+            string email = Session["ResetEmail"] as string;
 
-            if (!verified || user == null)
+            if (!verified || string.IsNullOrEmpty(email))
             {
                 // Safety catch
                 ViewState["ModalOpenPanel"] = "forgot";
@@ -284,8 +309,24 @@ namespace DevArt
             Page.Validate("ModalReset");
             if (!Page.IsValid) return;
 
-            // Update password
-            user.Password = mrstPassword.Text;
+            UserAccount user = TargetResetUser;
+            if (user == null)
+            {
+                string defaultName = email.Contains("@") ? email.Split('@')[0] : email;
+                user = new UserAccount
+                {
+                    Email = email,
+                    FullName = defaultName,
+                    Password = mrstPassword.Text,
+                    Phone = "",
+                    CreatedOn = DateTime.Now
+                };
+                AppData.AddUser(user);
+            }
+            else
+            {
+                user.Password = mrstPassword.Text;
+            }
 
             // Cleanup session
             Session.Remove("ResetEmail");

@@ -15,7 +15,7 @@
             <h1 class="auth-title">Verify OTP</h1>
             <p class="auth-lead">
                 Please enter the 4-digit code sent to
-                <strong><asp:Literal ID="litEmail" runat="server" /></strong>.
+                <strong><asp:Literal ID="litEmail" runat="server" /></strong>. (Valid for 5 minutes)
             </p>
 
             <asp:Panel ID="pnlMessage" runat="server" Visible="false">
@@ -42,13 +42,13 @@
                         ValidationExpression="^\d{4}$"
                         ErrorMessage="The code must be exactly 4 digits."
                         Text="The code must be exactly 4 digits." />
-                    <%-- Matching the issued code, and its 10-minute expiry, are server rules. --%>
+                    <%-- Matching the issued code, and its 5-minute expiry, are server rules. --%>
                     <asp:CustomValidator ID="cvOtp" runat="server"
                         ControlToValidate="txtOtp" ValidationGroup="Otp"
                         CssClass="field-error" Display="Dynamic"
                         OnServerValidate="cvOtp_ServerValidate"
-                        ErrorMessage="That code is incorrect or has expired. Request a new one."
-                        Text="Incorrect or expired code." />
+                        ErrorMessage="That code is incorrect or has expired after 5 minutes. Request a new one."
+                        Text="Incorrect or expired code (5 min limit)." />
                 </div>
             </div>
 

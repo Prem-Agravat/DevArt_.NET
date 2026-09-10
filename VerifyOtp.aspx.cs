@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DevArt.Models;
 
 namespace DevArt
 {
     /// <summary>Step 2 of password recovery (Figma frame 4).</summary>
     public partial class VerifyOtp : Page
     {
-        private const int OtpValidMinutes = 10;
+        private const int OtpValidMinutes = 5;
 
         private string ResetEmail
         {
@@ -35,12 +36,23 @@ namespace DevArt
         {
             pnlMessage.Visible = true;
             pnlMessage.CssClass = "form-alert success";
-            litMessage.Text = "OTP sent - please check your email. " +
-                              "<em>Demo build: your code is <strong>" +
-                              Server.HtmlEncode(Session["ResetOtp"] as string) + "</strong>.</em>";
+
+            bool emailSent = Session["OtpEmailSent"] is bool && (bool)Session["OtpEmailSent"];
+            string otpCode = Server.HtmlEncode(Session["ResetOtp"] as string);
+
+            if (emailSent)
+            {
+                litMessage.Text = "An OTP code has been sent to your email (expires in 5 minutes). " +
+                                  "<em>(Dev fallback code: <strong>" + otpCode + "</strong>)</em>";
+            }
+            else
+            {
+                litMessage.Text = "An OTP code was generated (expires in 5 minutes). " +
+                                  "<em>(Dev code: <strong>" + otpCode + "</strong>)</em>";
+            }
         }
 
-        /// <summary>The code must match the one issued and still be inside its window.</summary>
+        /// <summary>The code must match the one issued and still be inside its 5-minute window.</summary>
         protected void cvOtp_ServerValidate(object source, ServerValidateEventArgs args)
         {
             string issued = Session["ResetOtp"] as string;
@@ -71,6 +83,12 @@ namespace DevArt
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
             txtOtp.Text = string.Empty;
+
+            string mailErr;
+            bool sent = EmailService.SendOtpEmail(ResetEmail, otp, 5, out mailErr);
+            Session["OtpEmailSent"] = sent;
+            Session["OtpEmailError"] = mailErr;
+
             ShowSentNotice();
         }
     }

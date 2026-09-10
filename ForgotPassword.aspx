@@ -13,7 +13,7 @@
             </div>
 
             <h1 class="auth-title">Forgot Password</h1>
-            <p class="auth-lead">Enter your registered email and we will send a 4-digit verification code.</p>
+            <p class="auth-lead">Enter your registered email and we will send a 4-digit verification code to your email (valid for 5 minutes).</p>
 
             <asp:Panel ID="pnlMessage" runat="server" Visible="false">
                 <asp:Literal ID="litMessage" runat="server" />

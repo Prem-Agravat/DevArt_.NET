@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevArt.Models;
@@ -8,9 +8,14 @@ namespace DevArt
     /// <summary>Step 3 of password recovery (Figma frame 5).</summary>
     public partial class ResetPassword : Page
     {
+        private string ResetEmail
+        {
+            get { return Session["ResetEmail"] as string; }
+        }
+
         private UserAccount TargetUser
         {
-            get { return AppData.FindUserByEmail(Session["ResetEmail"] as string); }
+            get { return AppData.FindUserByEmail(ResetEmail); }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -18,7 +23,7 @@ namespace DevArt
             bool verified = Session["OtpVerified"] is bool && (bool)Session["OtpVerified"];
 
             // This screen is only reachable once the OTP step has passed.
-            if (!verified || TargetUser == null)
+            if (!verified || string.IsNullOrEmpty(ResetEmail))
             {
                 Response.Redirect("ForgotPassword.aspx", false);
             }
@@ -41,7 +46,24 @@ namespace DevArt
             if (!Page.IsValid) return;
 
             UserAccount user = TargetUser;
-            user.Password = txtNewPassword.Text;
+            if (user == null)
+            {
+                string email = ResetEmail;
+                string defaultName = email.Contains("@") ? email.Split('@')[0] : email;
+                user = new UserAccount
+                {
+                    Email = email,
+                    FullName = defaultName,
+                    Password = txtNewPassword.Text,
+                    Phone = "",
+                    CreatedOn = DateTime.Now
+                };
+                AppData.AddUser(user);
+            }
+            else
+            {
+                user.Password = txtNewPassword.Text;
+            }
 
             // Close the recovery window behind us.
             Session.Remove("ResetEmail");

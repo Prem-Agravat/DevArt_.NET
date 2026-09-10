@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevArt.Models;
@@ -14,7 +14,8 @@ namespace DevArt
 
         protected void cvEmail_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            args.IsValid = AppData.FindUserByEmail(args.Value) != null;
+            // Allow sending OTP to any email entered (registered or unregistered)
+            args.IsValid = true;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -24,8 +25,6 @@ namespace DevArt
 
             string email = txtEmail.Text.Trim();
 
-            // A real build would mail this; the demo keeps it in Session and shows it
-            // on the next screen so the flow can be walked through end to end.
             string otp = new Random(email.GetHashCode() ^ DateTime.Now.Millisecond)
                 .Next(1000, 10000)
                 .ToString();
@@ -33,6 +32,11 @@ namespace DevArt
             Session["ResetEmail"] = email;
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
+
+            string mailErr;
+            bool sent = EmailService.SendOtpEmail(email, otp, 5, out mailErr);
+            Session["OtpEmailSent"] = sent;
+            Session["OtpEmailError"] = mailErr;
 
             Response.Redirect("VerifyOtp.aspx", false);
         }
