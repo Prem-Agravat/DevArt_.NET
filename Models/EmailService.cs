@@ -18,6 +18,9 @@ namespace DevArt.Models
 
             try
             {
+                // Force TLS 1.2 for modern SMTP providers like Gmail/Outlook
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
                 string smtpHost = ConfigurationManager.AppSettings["SmtpHost"] ?? "smtp.gmail.com";
                 int smtpPort = 587;
                 int.TryParse(ConfigurationManager.AppSettings["SmtpPort"] ?? "587", out smtpPort);
@@ -62,15 +65,14 @@ namespace DevArt.Models
 
                     using (SmtpClient client = new SmtpClient(smtpHost, smtpPort))
                     {
-                        client.EnableSsl = enableSsl;
+                        client.UseDefaultCredentials = false;
                         if (!string.IsNullOrEmpty(smtpUsername) && !string.IsNullOrEmpty(smtpPassword))
                         {
                             client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
                         }
-                        else
-                        {
-                            client.UseDefaultCredentials = true;
-                        }
+                        client.EnableSsl = enableSsl;
+                        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        client.Timeout = 15000;
 
                         client.Send(mail);
                     }

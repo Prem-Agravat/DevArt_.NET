@@ -331,7 +331,7 @@ h6 {
 /* Hero Section */
 .hero-section {
     position: relative;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)), url('../Images/hero_background.jpg');
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%), url('../Images/hero_background.jpg');
     background-size: cover;
     background-position: center;
     min-height: 540px;
@@ -344,14 +344,14 @@ h6 {
 }
 
 .hero-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    max-width: 440px;
-    padding: 45px;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    max-width: 480px;
+    padding: 20px 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
     animation: fadeInUp 0.8s ease-out;
 }
 
@@ -761,8 +761,8 @@ h6 {
     }
 
     .hero-card {
-        padding: 30px;
-        max-width: 380px;
+        padding: 10px 0;
+        max-width: 420px;
     }
 
     .hero-title {
@@ -1167,24 +1167,24 @@ textarea.form-input {
    ========================================================================== */
 
 .auth-shell {
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 40px 20px 60px;
-    background: linear-gradient(rgba(248, 246, 242, 0.75), rgba(248, 246, 242, 0.85)), url('../Images/auth_bg_full.png') center/cover no-repeat;
+    background: #f8f6f2;
 }
 
 .auth-card {
     width: 100%;
     max-width: 420px;
-    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.92)), url('../Images/bg.jpeg') center/cover no-repeat;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
     border-radius: 24px;
     padding: 34px 30px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .auth-card.wide {
@@ -2319,8 +2319,9 @@ body.modal-open {
 
 /* Modal card */
 .auth-modal-box {
-    background: #ffffff;
+    background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.92)), url('../Images/bg.jpeg') center/cover no-repeat;
     border-radius: 24px;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
     width: 92%;
     max-width: 440px;
@@ -2493,4 +2494,228 @@ body.modal-open {
     .auth-modal-box {
         padding: 28px 22px 24px;
     }
+}
+
+/* ==========================================================================
+   Forgot Password Screen (Redesigned matching Screenshot)
+   ========================================================================== */
+
+.forgot-page-wrapper {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px 50px;
+    background: #f5f2ed;
+}
+
+.forgot-card-container {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.forgot-header-banner {
+    height: 220px;
+    background: url('../Images/auth_tapestry_header.png') center top / cover no-repeat,
+                url('../Images/auth_bg_full.png') center top / cover no-repeat,
+                url('../Images/bg.jpeg') center top / cover no-repeat;
+    position: relative;
+    padding: 16px;
+}
+
+.forgot-back-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222222;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+    z-index: 10;
+}
+
+.forgot-back-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.forgot-logo-wrapper {
+    position: relative;
+    height: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+}
+
+.forgot-logo-badge {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    margin-top: -55px;
+    background: #2b231f;
+    border: 3px solid #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.forgot-logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.forgot-form-card {
+    padding: 65px 26px 30px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 246, 242, 0.96) 100%),
+                url('../Images/bg.jpeg') center/cover no-repeat;
+    border-radius: 32px 32px 0 0;
+    margin-top: -30px;
+    position: relative;
+    z-index: 2;
+}
+
+.forgot-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #704225;
+    text-align: center;
+    margin: 0 0 24px;
+    letter-spacing: -0.2px;
+}
+
+.forgot-field-group {
+    margin-bottom: 14px;
+}
+
+.forgot-input-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.forgot-input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.forgot-field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.forgot-input {
+    width: 100% !important;
+    height: 48px !important;
+    border: 2px solid #4D4D4D !important;
+    border-radius: 14px !important;
+    padding: 0 16px 0 46px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #1a1a1a !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.forgot-input:focus {
+    border-color: #704225 !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(112, 66, 37, 0.15) !important;
+}
+
+.forgot-input::placeholder {
+    color: #666666;
+    font-weight: 400;
+}
+
+.forgot-otp-msg {
+    color: #248A3D;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-align: center;
+    margin: 18px 0;
+    letter-spacing: 0.2px;
+}
+
+.forgot-btn-wrapper {
+    margin-top: 14px;
+}
+
+.forgot-submit-btn {
+    width: 100%;
+    height: 48px;
+    background: #855335;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(133, 83, 53, 0.3);
+}
+
+.forgot-submit-btn:hover {
+    background: #6e4125;
+    box-shadow: 0 6px 18px rgba(110, 65, 37, 0.4);
+}
+
+.forgot-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.forgot-footer {
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #333333;
+    margin-top: 22px;
+    font-weight: 500;
+}
+
+.forgot-signup-link {
+    color: #111111;
+    font-weight: 700;
+    text-decoration: underline;
+    margin-left: 2px;
+}
+
+.forgot-signup-link:hover {
+    color: #704225;
 }

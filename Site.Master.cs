@@ -189,14 +189,12 @@ namespace DevArt
             if (!Page.IsValid) return;
 
             string email = mfEmail.Text.Trim();
-
-            string otp = new Random(email.GetHashCode() ^ DateTime.Now.Millisecond)
-                .Next(1000, 10000)
-                .ToString();
+            string otp = ForgotPassword.GenerateOtp();
 
             Session["ResetEmail"] = email;
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
+            Session.Remove("OtpVerified");
 
             string mailErr;
             bool sent = EmailService.SendOtpEmail(email, otp, 5, out mailErr);
@@ -214,17 +212,17 @@ namespace DevArt
             mlitOtpEmail.Text = Server.HtmlEncode(Session["ResetEmail"] as string);
             mpnlOtpSent.Visible = true;
             bool emailSent = Session["OtpEmailSent"] is bool && (bool)Session["OtpEmailSent"];
-            string otpCode = Server.HtmlEncode(Session["ResetOtp"] as string);
 
             if (emailSent)
             {
-                mlitOtpMsg.Text = "An OTP code has been sent to your email (expires in 5 minutes). " +
-                                  "<em>(Dev fallback code: <strong>" + otpCode + "</strong>)</em>";
+                mpnlOtpSent.CssClass = "form-alert success";
+                mlitOtpMsg.Text = "An OTP code has been sent to your email (expires in 5 minutes).";
             }
             else
             {
-                mlitOtpMsg.Text = "An OTP code was generated (expires in 5 minutes). " +
-                                  "<em>(Dev code: <strong>" + otpCode + "</strong>)</em>";
+                mpnlOtpSent.CssClass = "form-alert danger";
+                string err = Session["OtpEmailError"] as string;
+                mlitOtpMsg.Text = "Could not send OTP email" + (!string.IsNullOrEmpty(err) ? ": " + Server.HtmlEncode(err) : ". Please try again.");
             }
         }
 
@@ -257,7 +255,7 @@ namespace DevArt
         protected void btnModalOtpResend_Click(object sender, EventArgs e)
         {
             string email = Session["ResetEmail"] as string;
-            string otp = new Random(DateTime.Now.Millisecond).Next(1000, 10000).ToString();
+            string otp = ForgotPassword.GenerateOtp();
             Session["ResetOtp"] = otp;
             Session["OtpSentAt"] = DateTime.Now;
             moOtp.Text = string.Empty;
