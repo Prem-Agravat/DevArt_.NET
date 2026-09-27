@@ -2719,3 +2719,300 @@ body.modal-open {
 .forgot-signup-link:hover {
     color: #704225;
 }
+
+/* ==========================================================================
+   Add New Address Screen (Redesigned matching Screenshot 2)
+   ========================================================================== */
+
+.addr-page-wrapper {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px 50px;
+    background: #f5f2ed;
+}
+
+.addr-card-container {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 246, 242, 0.97) 100%),
+                url('../Images/bg.jpeg') center/cover no-repeat;
+    border-radius: 28px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.addr-header-banner {
+    padding: 24px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addr-logo-badge {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #2b231f;
+    border: 3px solid #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.addr-logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.addr-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.addr-back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222222;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.addr-back-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    background: #ffffff;
+}
+
+.addr-page-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #111111;
+    text-align: center;
+    margin: 0;
+}
+
+.addr-form-card {
+    padding: 20px 24px 30px;
+}
+
+.addr-section {
+    margin-bottom: 20px;
+}
+
+.addr-section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6b6b6b;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+}
+
+.addr-field-group {
+    margin-bottom: 12px;
+}
+
+.addr-input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.addr-field-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6B3E26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.addr-input {
+    width: 100% !important;
+    height: 48px !important;
+    border: 1.5px solid #8C5535 !important;
+    border-radius: 12px !important;
+    padding: 0 16px 0 46px !important;
+    background: #ffffff !important;
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #1a1a1a !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.addr-input.no-left-icon {
+    padding-left: 16px !important;
+}
+
+.addr-input:focus {
+    border-color: #6E4123 !important;
+    box-shadow: 0 0 0 3px rgba(110, 65, 35, 0.15) !important;
+}
+
+.addr-input::placeholder {
+    color: #333333;
+    font-weight: 500;
+}
+
+.addr-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.addr-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.addr-select {
+    width: 100% !important;
+    height: 48px !important;
+    border: 1.5px solid #8C5535 !important;
+    border-radius: 12px !important;
+    padding: 0 36px 0 16px !important;
+    background: #ffffff !important;
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: #1a1a1a !important;
+    outline: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    cursor: pointer !important;
+}
+
+.addr-select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.addr-saveas-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.addr-saveas-pill {
+    flex: 1;
+    height: 60px;
+    border: 1.5px solid #8C5535;
+    border-radius: 14px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #444444;
+}
+
+.addr-saveas-pill.selected {
+    background: #FDF3EB;
+    border-color: #8C5535;
+    color: #8C5535;
+    box-shadow: 0 2px 8px rgba(140, 85, 53, 0.15);
+}
+
+.addr-saveas-pill:hover:not(.selected) {
+    background: #faf8f5;
+}
+
+.addr-checkbox-row {
+    display: flex;
+    align-items: center;
+    font-size: 13.5px;
+    color: #333333;
+    font-weight: 500;
+}
+
+.addr-btn-wrapper {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addr-submit-btn {
+    width: 100%;
+    height: 50px;
+    background: #855335;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(133, 83, 53, 0.3);
+}
+
+.addr-submit-btn:hover {
+    background: #6e4125;
+    box-shadow: 0 6px 18px rgba(110, 65, 37, 0.4);
+}
+
+.addr-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.addr-cancel-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #666666;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    padding: 6px 0;
+}
+
+.addr-cancel-btn:hover {
+    color: #111111;
+    text-decoration: underline;
+}
