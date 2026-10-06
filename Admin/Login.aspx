@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="DevArt.Admin.AdminLogin" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="DevArt.Admin.AdminLogin" %>
 
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">DevArt - Admin Panel</asp:Content>
 
@@ -17,7 +17,7 @@
 
             <asp:ValidationSummary ID="vsAdmin" runat="server"
                 ValidationGroup="AdminLogin" CssClass="validation-summary"
-                HeaderText="Sign-in failed:" DisplayMode="BulletList" />
+                HeaderText="Sign-in failed:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
             <div class="form-grid">
                 <div class="form-field full">

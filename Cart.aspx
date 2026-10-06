@@ -32,7 +32,7 @@
 
                     <asp:ValidationSummary ID="vsCart" runat="server"
                         ValidationGroup="Cart" CssClass="validation-summary"
-                        HeaderText="The cart could not be updated:" DisplayMode="BulletList" />
+                        HeaderText="The cart could not be updated:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                     <div class="cart-v2-items-list">
                         <asp:Repeater ID="rptCart" runat="server" OnItemCommand="rptCart_ItemCommand">

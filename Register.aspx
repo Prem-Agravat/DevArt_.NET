@@ -48,7 +48,7 @@
                 ValidationGroup="Register"
                 CssClass="validation-summary"
                 HeaderText="Please fix these details to create your account:"
-                DisplayMode="BulletList" />
+                DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
             <div class="form-grid">
                 <div class="form-field full">

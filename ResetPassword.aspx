@@ -32,7 +32,7 @@
 
             <asp:ValidationSummary ID="vsReset" runat="server"
                 ValidationGroup="Reset" CssClass="validation-summary"
-                HeaderText="Your password could not be updated:" DisplayMode="BulletList" />
+                HeaderText="Your password could not be updated:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
             <div class="form-grid">
                 <div class="form-field full">

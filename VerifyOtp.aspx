@@ -24,7 +24,7 @@
 
             <asp:ValidationSummary ID="vsOtp" runat="server"
                 ValidationGroup="Otp" CssClass="validation-summary"
-                HeaderText="The code could not be verified:" DisplayMode="BulletList" />
+                HeaderText="The code could not be verified:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
             <div class="form-grid">
                 <div class="form-field full" style="align-items: center;">

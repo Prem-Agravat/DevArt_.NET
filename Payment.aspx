@@ -29,7 +29,7 @@
 
                     <asp:ValidationSummary ID="vsPay" runat="server"
                         ValidationGroup="Pay" CssClass="validation-summary"
-                        HeaderText="The order could not be placed:" DisplayMode="BulletList" />
+                        HeaderText="The order could not be placed:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                     <!-- Payment Method Card -->
                     <div class="pay-method-card">

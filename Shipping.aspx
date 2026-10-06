@@ -33,7 +33,7 @@
 
                     <asp:ValidationSummary ID="vsShip" runat="server"
                         ValidationGroup="Ship" CssClass="validation-summary"
-                        HeaderText="We cannot continue yet:" DisplayMode="BulletList" />
+                        HeaderText="We cannot continue yet:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                     <!-- Address List Repeater -->
                     <asp:Repeater ID="rptAddresses" runat="server">

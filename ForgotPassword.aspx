@@ -35,7 +35,7 @@
 
                 <asp:ValidationSummary ID="vsForgot" runat="server"
                     ValidationGroup="Forgot" CssClass="validation-summary"
-                    HeaderText="Please check the following:" DisplayMode="BulletList" />
+                    HeaderText="Please check the following:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                 <div class="forgot-field-group">
                     <label for="<%= txtEmail.ClientID %>" class="forgot-input-label">Enter Your Registered email</label>

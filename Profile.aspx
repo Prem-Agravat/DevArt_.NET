@@ -219,7 +219,7 @@
 
                         <asp:ValidationSummary ID="vsProfile" runat="server"
                             ValidationGroup="Profile" CssClass="validation-summary"
-                            HeaderText="Your profile could not be saved:" DisplayMode="BulletList" />
+                            HeaderText="Your profile could not be saved:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <!-- SECTION 1: PERSONAL INFORMATION -->
                         <div class="prof-img2-form-grid">
@@ -328,7 +328,7 @@
 
                         <asp:ValidationSummary ID="vsPassword" runat="server"
                             ValidationGroup="Password" CssClass="validation-summary"
-                            HeaderText="Your password could not be changed:" DisplayMode="BulletList" />
+                            HeaderText="Your password could not be changed:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="prof-pw-form-container">
                             <!-- CURRENT PASSWORD -->

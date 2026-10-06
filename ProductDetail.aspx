@@ -123,7 +123,7 @@
 
                     <asp:ValidationSummary ID="vsBuy" runat="server"
                         ValidationGroup="Buy" CssClass="validation-summary"
-                        HeaderText="This item could not be added:" DisplayMode="BulletList" />
+                        HeaderText="This item could not be added:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                     <!-- QUANTITY & ADD TO CART ROW -->
                     <div class="item-detail-buy-row">
@@ -198,7 +198,7 @@
 
                 <asp:ValidationSummary ID="vsReview" runat="server"
                     ValidationGroup="Review" CssClass="validation-summary"
-                    HeaderText="Your review could not be posted:" DisplayMode="BulletList" />
+                    HeaderText="Your review could not be posted:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                 <div class="form-grid">
                     <div class="form-field">

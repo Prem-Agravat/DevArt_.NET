@@ -149,7 +149,7 @@
                             ValidationGroup="ModalLogin"
                             CssClass="validation-summary"
                             HeaderText="Please correct the following:"
-                            DisplayMode="BulletList" />
+                            DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="form-field full" style="margin-bottom:14px;">
                             <label class="auth-label">Email</label>
@@ -258,7 +258,7 @@
                             ValidationGroup="ModalRegister"
                             CssClass="validation-summary"
                             HeaderText="Please fix these details:"
-                            DisplayMode="BulletList" />
+                            DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="form-field full" style="margin-bottom:12px;">
                             <label class="auth-label">Full Name</label>
@@ -392,7 +392,7 @@
                             ValidationGroup="ModalForgot"
                             CssClass="validation-summary"
                             HeaderText="Please check the following:"
-                            DisplayMode="BulletList" />
+                            DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="form-field full" style="margin-bottom:14px;">
                             <label>Email Address<span class="req">*</span></label>
@@ -443,7 +443,7 @@
                             ValidationGroup="ModalOtp"
                             CssClass="validation-summary"
                             HeaderText="Error verifying code:"
-                            DisplayMode="BulletList" />
+                            DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="form-field full" style="margin-bottom:14px;">
                             <label>Recovery Code<span class="req">*</span></label>
@@ -488,7 +488,7 @@
                             ValidationGroup="ModalReset"
                             CssClass="validation-summary"
                             HeaderText="Please check the following:"
-                            DisplayMode="BulletList" />
+                            DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                         <div class="form-field full" style="margin-bottom:12px;">
                             <label>New Password<span class="req">*</span></label>

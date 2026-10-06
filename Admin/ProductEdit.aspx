@@ -13,7 +13,7 @@
 
         <asp:ValidationSummary ID="vsProduct" runat="server"
             ValidationGroup="Product" CssClass="validation-summary"
-            HeaderText="The product could not be saved:" DisplayMode="BulletList" />
+            HeaderText="The product could not be saved:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
         <div class="form-grid">
             <div class="form-field full">

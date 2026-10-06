@@ -31,7 +31,7 @@
 
                 <asp:ValidationSummary ID="vsSignIn" runat="server" ValidationGroup="SignIn"
                     CssClass="validation-summary" HeaderText="Please correct the following before signing in:"
-                    DisplayMode="BulletList" />
+                    DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                 <div class="form-grid">
                     <div class="form-field full">

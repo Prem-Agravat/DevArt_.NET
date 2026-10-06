@@ -77,7 +77,7 @@
                         ValidationGroup="Contact"
                         CssClass="validation-summary"
                         HeaderText="Your enquiry could not be sent:"
-                        DisplayMode="BulletList" />
+                        DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                     <div class="contact-form-grid">
                         <div class="contact-field-group">

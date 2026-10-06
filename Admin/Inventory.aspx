@@ -518,7 +518,7 @@
 
                 <asp:ValidationSummary ID="vsProduct" runat="server"
                     ValidationGroup="ProductModal" CssClass="validation-summary"
-                    HeaderText="Please check the following items:" DisplayMode="BulletList" />
+                    HeaderText="Please check the following items:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                 <!-- PHOTO UPLOAD / SELECTION SECTION (MATCHING IMAGE 2) -->
                 <div class="prod-photo-section">

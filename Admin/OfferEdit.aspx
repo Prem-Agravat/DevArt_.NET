@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="OfferEdit.aspx.cs" Inherits="DevArt.Admin.OfferEdit" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="OfferEdit.aspx.cs" Inherits="DevArt.Admin.OfferEdit" %>
 
 <asp:Content ID="TitleContent" ContentPlaceHolderID="TitleContent" runat="server">DevArt Admin - Offer</asp:Content>
 
@@ -13,7 +13,7 @@
 
         <asp:ValidationSummary ID="vsOffer" runat="server"
             ValidationGroup="Offer" CssClass="validation-summary"
-            HeaderText="The offer could not be saved:" DisplayMode="BulletList" />
+            HeaderText="The offer could not be saved:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
         <div class="form-grid">
             <div class="form-field">

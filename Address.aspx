@@ -28,7 +28,7 @@
 
                 <asp:ValidationSummary ID="vsAddress" runat="server"
                     ValidationGroup="Address" CssClass="validation-summary"
-                    HeaderText="The address could not be saved:" DisplayMode="BulletList" />
+                    HeaderText="The address could not be saved:" DisplayMode="BulletList" Visible="false" ShowSummary="false" />
 
                 <!-- CONTACT DETAILS -->
                 <div class="addr-section">
