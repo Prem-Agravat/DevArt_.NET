@@ -857,10 +857,10 @@
                 <asp:Label ID="lblSuccessTitle" runat="server" Text="Offer Updated!" />
             </h2>
             <p style="font-size: 13.5px; color: #64748B; margin: 0 0 24px;">
-                <asp:Label ID="lblSuccessSub" runat="server" Text="successfully Updated." />
+                <asp:Label ID="lblSuccessSub" runat="server" Text="Offer updated successfully." />
             </p>
 
-            <asp:Button ID="btnBackToOffers" runat="server" Text="&larr; Return to Offer" OnClick="btnBackToOffers_Click" CausesValidation="false" style="width:100%; height:46px; background:#6E4125; color:#ffffff; border-radius:14px; border:none; font-size:14px; font-weight:700; cursor:pointer;" />
+            <asp:Button ID="btnBackToOffers" runat="server" Text="&larr; Return to Offers" OnClick="btnBackToOffers_Click" OnClientClick="closeSuccessModal();" CausesValidation="false" style="width:100%; height:46px; background:#6E4125; color:#ffffff; border-radius:14px; border:none; font-size:14px; font-weight:700; cursor:pointer;" />
         </div>
     </asp:Panel>
 
@@ -903,7 +903,7 @@
             <h2 style="font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 800; color: #0F172A; margin: 0 0 8px;">Offer Deleted!</h2>
             <p style="font-size: 13.5px; color: #64748B; margin: 0 0 24px;">Offer deleted successfully.</p>
 
-            <asp:Button ID="btnReturnToOffersAfterDelete" runat="server" Text="&larr; Return to Inventory Management" OnClick="btnReturnToOffersAfterDelete_Click" OnClientClick="closeSuccessDeleteOfferModal(); return false;" CausesValidation="false" style="width:100%; height:46px; background:#6E4125; color:#ffffff; border-radius:14px; border:none; font-size:14px; font-weight:700; cursor:pointer;" />
+            <asp:Button ID="btnReturnToOffersAfterDelete" runat="server" Text="&larr; Return to Offers Management" OnClick="btnReturnToOffersAfterDelete_Click" OnClientClick="closeSuccessDeleteOfferModal();" CausesValidation="false" style="width:100%; height:46px; background:#6E4125; color:#ffffff; border-radius:14px; border:none; font-size:14px; font-weight:700; cursor:pointer;" />
         </div>
     </asp:Panel>
 

@@ -87,9 +87,18 @@ namespace DevArt.Admin
             }
         }
 
+        private void HideAllModals()
+        {
+            pnlOfferModal.Style["display"] = "none";
+            pnlSuccessModal.Style["display"] = "none";
+            pnlConfirmDeleteOfferModal.Style["display"] = "none";
+            pnlSuccessDeleteOfferModal.Style["display"] = "none";
+        }
+
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDiscountValueVisibility();
+            HideAllModals();
             pnlOfferModal.Style["display"] = "flex";
         }
 
@@ -114,6 +123,7 @@ namespace DevArt.Admin
 
         private void OpenModalForAdd()
         {
+            HideAllModals();
             hfOfferId.Value = "0";
             lblModalTitle.Text = "Add Offer";
             txtKicker.Text = string.Empty;
@@ -135,6 +145,7 @@ namespace DevArt.Admin
 
         private void OpenModalForEdit(int id)
         {
+            HideAllModals();
             Offer offer = AppData.FindOffer(id);
             if (offer == null) return;
 
@@ -176,12 +187,12 @@ namespace DevArt.Admin
 
         protected void btnDeleteOfferModal_Click(object sender, EventArgs e)
         {
+            HideAllModals();
             int offerId;
             if (int.TryParse(hfOfferId.Value, out offerId) && offerId > 0)
             {
                 hfDeleteOfferId.Value = offerId.ToString();
             }
-            pnlOfferModal.Style["display"] = "none";
             pnlConfirmDeleteOfferModal.Style["display"] = "flex";
         }
 
@@ -192,22 +203,19 @@ namespace DevArt.Admin
             {
                 AppData.DeleteOffer(offerId);
             }
-            pnlOfferModal.Style["display"] = "none";
-            pnlConfirmDeleteOfferModal.Style["display"] = "none";
+            HideAllModals();
             pnlSuccessDeleteOfferModal.Style["display"] = "flex";
             Bind();
         }
 
         protected void btnCancelDeleteOffer_Click(object sender, EventArgs e)
         {
-            pnlConfirmDeleteOfferModal.Style["display"] = "none";
+            HideAllModals();
         }
 
         protected void btnReturnToOffersAfterDelete_Click(object sender, EventArgs e)
         {
-            pnlSuccessDeleteOfferModal.Style["display"] = "none";
-            pnlConfirmDeleteOfferModal.Style["display"] = "none";
-            pnlOfferModal.Style["display"] = "none";
+            HideAllModals();
             Bind();
         }
 
@@ -285,30 +293,30 @@ namespace DevArt.Admin
                 offer.Id = offerId;
                 AppData.ReplaceOffer(offerId, offer);
                 lblSuccessTitle.Text = "Offer Updated!";
-                lblSuccessSub.Text = "successfully Updated.";
-                btnBackToOffers.Text = "← Return to Offer";
+                lblSuccessSub.Text = "Offer updated successfully.";
+                btnBackToOffers.Text = "← Return to Offers";
             }
             else
             {
                 AppData.AddOffer(offer);
                 lblSuccessTitle.Text = "Offer Added!";
-                lblSuccessSub.Text = "successfully Updated.";
-                btnBackToOffers.Text = "← Return to Offer";
+                lblSuccessSub.Text = "Offer added successfully.";
+                btnBackToOffers.Text = "← Return to Offers";
             }
 
-            pnlOfferModal.Style["display"] = "none";
+            HideAllModals();
             pnlSuccessModal.Style["display"] = "flex";
             Bind();
         }
 
         protected void btnCancelModal_Click(object sender, EventArgs e)
         {
-            pnlOfferModal.Style["display"] = "none";
+            HideAllModals();
         }
 
         protected void btnBackToOffers_Click(object sender, EventArgs e)
         {
-            pnlSuccessModal.Style["display"] = "none";
+            HideAllModals();
             Bind();
         }
 
@@ -316,6 +324,7 @@ namespace DevArt.Admin
         {
             pnlModalError.Visible = true;
             litModalError.Text = Server.HtmlEncode(error);
+            HideAllModals();
             pnlOfferModal.Style["display"] = "flex";
         }
 
