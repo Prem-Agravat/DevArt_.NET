@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Web.UI;
@@ -27,19 +27,14 @@ namespace DevArt.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            litHeading.Text = IsEdit ? "Edit Offer" : "Add Offer";
-            btnSave.Text = IsEdit ? "Update Changes" : "Add Offer";
-            btnDelete.Visible = IsEdit;
-
-            // An offer has to expire after today, and "today" moves.
-            cmpExpiry.ValueToCompare = DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-            if (!IsPostBack && IsEdit)
+            if (IsEdit)
             {
-                LoadOffer();
+                Response.Redirect("Offers.aspx?editId=" + OfferId, false);
             }
-
-            ApplyTypeState();
+            else
+            {
+                Response.Redirect("Offers.aspx?action=add", false);
+            }
         }
 
         private void LoadOffer()

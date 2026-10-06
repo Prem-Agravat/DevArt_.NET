@@ -38,7 +38,21 @@ namespace DevArt
                 return;
             }
 
-            BindSummary();
+            if (!IsPostBack)
+            {
+                BindSummary();
+            }
+        }
+
+        public string FormatImageUrl(object imgObj)
+        {
+            string img = Convert.ToString(imgObj);
+            if (string.IsNullOrWhiteSpace(img)) return "Images/category_cushion.jpg";
+            if (img.StartsWith("Images/", StringComparison.OrdinalIgnoreCase) || img.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || img.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                return img;
+            }
+            return "Images/" + img;
         }
 
         private void BindSummary()
@@ -53,16 +67,11 @@ namespace DevArt
             litDiscount.Text = discount.ToString("N0");
 
             decimal shipping = CartService.Shipping;
-            litShipping.Text = shipping == 0m ? "Free" : "₹" + shipping.ToString("N0");
+            litShipping.Text = shipping == 0m ? "Calculated at next step" : "₹" + shipping.ToString("N0");
 
             decimal total = CartService.Total;
             litTotal.Text = total.ToString("N0");
             btnPay.Text = "Pay ₹" + total.ToString("N0");
-
-            Address a = ShipTo;
-            litAddress.Text = "<strong>" + Server.HtmlEncode(a.FullName) + "</strong><br />" +
-                              Server.HtmlEncode(a.OneLine) + "<br />" +
-                              Server.HtmlEncode(a.Phone);
         }
 
         protected void btnPay_Click(object sender, EventArgs e)
@@ -71,6 +80,7 @@ namespace DevArt
             if (!Page.IsValid) return;
 
             UserAccount user = (UserAccount)Session["CurrentUser"];
+            Address shipTo = ShipTo;
 
             Order order = new Order
             {
@@ -83,7 +93,7 @@ namespace DevArt
                 SubTotal = CartService.SubTotal,
                 Discount = CartService.Discount,
                 Shipping = CartService.Shipping,
-                ShipTo = ShipTo
+                ShipTo = shipTo
             };
 
             foreach (CartItem line in CartService.Items)
@@ -99,11 +109,30 @@ namespace DevArt
 
             AppData.AddOrder(order);
 
-            // The cart has become an order - clear it and remember the number for the receipt.
+            // Populate Modal Data
+            litModalOrderNum.Text = order.OrderNumber;
+
+            DateTime delStart = DateTime.Today.AddDays(3);
+            DateTime delEnd = DateTime.Today.AddDays(5);
+            litModalDeliveryDate.Text = delStart.ToString("MMM d") + " - " + delEnd.ToString("MMM d");
+
+            rptModalItems.DataSource = order.Lines;
+            rptModalItems.DataBind();
+
+            litModalTotal.Text = order.Total.ToString("N0");
+
+            if (shipTo != null)
+            {
+                litModalAddressName.Text = Server.HtmlEncode(shipTo.FullName);
+                litModalAddressLine.Text = Server.HtmlEncode(shipTo.OneLine);
+            }
+
+            // Clear cart and store order key
             CartService.Clear();
             Session[CartService.LastOrderKey] = order.OrderNumber;
 
-            Response.Redirect("OrderSuccess.aspx", false);
+            // Display popup modal right on Payment page
+            pnlSuccessModal.Visible = true;
         }
 
         protected void btnBack_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -6,9 +6,29 @@ using DevArt.Models;
 
 namespace DevArt
 {
-    /// <summary>Checkout step 2 - delivery address (Figma frame 13).</summary>
     public partial class Shipping : Page
     {
+        public int SelectedAddressId
+        {
+            get
+            {
+                object val = ViewState["SelectedAddressId"];
+                return val != null ? (int)val : 0;
+            }
+            set { ViewState["SelectedAddressId"] = value; }
+        }
+
+        public string FormatImageUrl(object imgObj)
+        {
+            string img = Convert.ToString(imgObj);
+            if (string.IsNullOrWhiteSpace(img)) return "Images/category_cushion.jpg";
+            if (img.StartsWith("Images/", StringComparison.OrdinalIgnoreCase) || img.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || img.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                return img;
+            }
+            return "Images/" + img;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             UserAccount user = Session["CurrentUser"] as UserAccount;
@@ -35,27 +55,31 @@ namespace DevArt
 
         private void BindAddresses(UserAccount user)
         {
-            var rows = AppData.AddressesFor(user.Email)
-                .Select(a => new
-                {
-                    a.Id,
-                    Display = a.FullName + " - " + a.OneLine + " (" + a.Label + ")"
-                })
-                .ToList();
-
-            rblAddresses.DataSource = rows;
-            rblAddresses.DataBind();
+            var list = AppData.AddressesFor(user.Email);
 
             int chosen = Session[CartService.ShipToKey] is int ? (int)Session[CartService.ShipToKey] : 0;
-            ListItem preselect = chosen > 0 ? rblAddresses.Items.FindByValue(chosen.ToString()) : null;
-            if (preselect != null)
+            if (chosen > 0 && list.Any(a => a.Id == chosen))
             {
-                preselect.Selected = true;
+                SelectedAddressId = chosen;
             }
-            else if (rblAddresses.Items.Count == 1)
+            else if (list.Count > 0)
             {
-                rblAddresses.Items[0].Selected = true;
+                SelectedAddressId = list[0].Id;
             }
+
+            rptAddresses.DataSource = list;
+            rptAddresses.DataBind();
+
+            var rowData = list.Select(a => new { a.Id, Display = a.FullName + " - " + a.OneLine + " (" + a.Label + ")" }).ToList();
+            rblAddresses.DataSource = rowData;
+            rblAddresses.DataBind();
+
+            if (SelectedAddressId > 0 && rblAddresses.Items.FindByValue(SelectedAddressId.ToString()) != null)
+            {
+                rblAddresses.SelectedValue = SelectedAddressId.ToString();
+            }
+
+            hfSelectedAddressId.Value = SelectedAddressId.ToString();
         }
 
         private void BindSummary()
@@ -70,16 +94,29 @@ namespace DevArt
             litDiscount.Text = discount.ToString("N0");
 
             decimal shipping = CartService.Shipping;
-            litShipping.Text = shipping == 0m ? "Free" : "₹" + shipping.ToString("N0");
+            litShipping.Text = shipping == 0m ? "Calculated at next step" : "₹" + shipping.ToString("N0");
             litTotal.Text = CartService.Total.ToString("N0");
         }
 
         protected void btnContinue_Click(object sender, EventArgs e)
         {
-            Page.Validate("Ship");
-            if (!Page.IsValid) return;
+            int addressId = 0;
+            if (!string.IsNullOrEmpty(hfSelectedAddressId.Value))
+            {
+                int.TryParse(hfSelectedAddressId.Value, out addressId);
+            }
+            if (addressId == 0 && rblAddresses.SelectedItem != null)
+            {
+                int.TryParse(rblAddresses.SelectedValue, out addressId);
+            }
 
-            Session[CartService.ShipToKey] = int.Parse(rblAddresses.SelectedValue);
+            if (addressId <= 0)
+            {
+                rfvAddress.IsValid = false;
+                return;
+            }
+
+            Session[CartService.ShipToKey] = addressId;
             Response.Redirect("Payment.aspx", false);
         }
 

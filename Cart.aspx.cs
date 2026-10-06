@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevArt.Models;
@@ -18,12 +19,19 @@ namespace DevArt
             }
         }
 
+        public string FormatImageUrl(object imgObj)
+        {
+            string img = Convert.ToString(imgObj);
+            if (string.IsNullOrWhiteSpace(img)) return "Images/category_cushion.jpg";
+            if (img.StartsWith("Images/", StringComparison.OrdinalIgnoreCase) || img.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || img.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                return img;
+            }
+            return "Images/" + img;
+        }
+
         // ------------------------------------------------- server-side validators
 
-        /// <summary>
-        /// The code must exist, still be active, and clear its minimum spend for
-        /// this particular cart - none of which the browser can know.
-        /// </summary>
         protected void cvPromo_ServerValidate(object source, ServerValidateEventArgs args)
         {
             Offer offer = AppData.FindOffer(args.Value);
@@ -41,6 +49,24 @@ namespace DevArt
             {
                 CartService.Remove(productId);
                 ShowStatus("Item removed from your cart.", true);
+            }
+            else if (e.CommandName == "Decrease")
+            {
+                CartItem line = CartService.Items.FirstOrDefault(i => i.ProductId == productId);
+                if (line != null)
+                {
+                    CartService.SetQuantity(productId, line.Quantity - 1);
+                    ShowStatus("Quantity updated.", true);
+                }
+            }
+            else if (e.CommandName == "Increase")
+            {
+                CartItem line = CartService.Items.FirstOrDefault(i => i.ProductId == productId);
+                if (line != null)
+                {
+                    CartService.SetQuantity(productId, line.Quantity + 1);
+                    ShowStatus("Quantity updated.", true);
+                }
             }
             else if (e.CommandName == "Update")
             {
@@ -104,27 +130,30 @@ namespace DevArt
         {
             List<CartItem> items = CartService.Items;
 
-            pnlCart.Visible = items.Count > 0;
-            pnlEmpty.Visible = items.Count == 0;
+            if (pnlCart != null) pnlCart.Visible = items.Count > 0;
+            if (pnlEmpty != null) pnlEmpty.Visible = items.Count == 0;
 
-            rptCart.DataSource = items;
-            rptCart.DataBind();
+            if (rptCart != null)
+            {
+                rptCart.DataSource = items;
+                rptCart.DataBind();
+            }
 
             if (items.Count == 0) return;
 
-            litItemCount.Text = CartService.UnitCount.ToString();
-            litSubTotal.Text = CartService.SubTotal.ToString("N0");
+            if (litItemCount != null) litItemCount.Text = CartService.UnitCount.ToString();
+            if (litSubTotal != null) litSubTotal.Text = CartService.SubTotal.ToString("N0");
 
             decimal discount = CartService.Discount;
-            pnlDiscount.Visible = discount > 0;
-            litPromoCode.Text = Server.HtmlEncode(CartService.PromoCode ?? string.Empty);
-            litDiscount.Text = discount.ToString("N0");
+            if (pnlDiscount != null) pnlDiscount.Visible = discount > 0;
+            if (litPromoCode != null) litPromoCode.Text = Server.HtmlEncode(CartService.PromoCode ?? string.Empty);
+            if (litDiscount != null) litDiscount.Text = discount.ToString("N0");
 
             decimal shipping = CartService.Shipping;
-            litShipping.Text = shipping == 0m ? "Free" : "₹" + shipping.ToString("N0");
+            if (litShipping != null) litShipping.Text = shipping == 0m ? "Calculated at next step" : "₹" + shipping.ToString("N0");
 
-            litTotal.Text = CartService.Total.ToString("N0");
-            litEta.Text = DateTime.Today.AddDays(6).ToString("dddd, MMM d");
+            if (litTotal != null) litTotal.Text = CartService.Total.ToString("N0");
+            if (litEta != null) litEta.Text = DateTime.Today.AddDays(6).ToString("dddd, MMM d");
         }
 
         private void ShowStatus(string text, bool success)

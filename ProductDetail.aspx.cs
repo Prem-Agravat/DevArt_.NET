@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -70,11 +70,19 @@ namespace DevArt
             btnAddToCart.Enabled = p.InStock;
         }
 
+        public string RenderStars(object ratingObj)
+        {
+            int rating = Convert.ToInt32(ratingObj);
+            return Stars(rating);
+        }
+
         private static string Stars(double rating)
         {
-            int full = (int)Math.Round(rating);
-            return new string('★', Math.Max(0, Math.Min(5, full))) +
-                   new string('☆', Math.Max(0, 5 - full));
+            int full = (int)Math.Max(0, Math.Min(5, Math.Round(rating)));
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < full; i++) sb.Append("&#9733;");
+            for (int i = full; i < 5; i++) sb.Append("&#9734;");
+            return sb.ToString();
         }
 
         private void BindReviews()

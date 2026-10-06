@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -54,21 +54,48 @@ namespace DevArt.Admin
 
         protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName != "DeleteUser") return;
-
             int id;
             if (!int.TryParse(Convert.ToString(e.CommandArgument), out id)) return;
 
             UserAccount user = AppData.Users.FirstOrDefault(u => u.Id == id);
-            if (user != null && AppData.DeleteUser(id))
+            if (user == null) return;
+
+            if (e.CommandName == "ViewUser")
             {
-                ShowStatus("User deleted successfully: " + Server.HtmlEncode(user.Email) + ".", true);
+                int orderCount = AppData.OrdersFor(user.Email).Count;
+                ShowStatus("Customer details — Name: " + Server.HtmlEncode(user.FullName) + " | Email: " + Server.HtmlEncode(user.Email) + " | City: " + Server.HtmlEncode(user.City ?? "N/A") + " | Total Orders: " + orderCount, true);
+            }
+            else if (e.CommandName == "PromptDelete" || e.CommandName == "DeleteUser")
+            {
+                hfDeleteUserId.Value = id.ToString();
+                pnlConfirmDeleteModal.Style["display"] = "flex";
+            }
+        }
+
+        protected void btnConfirmDelete_Click(object sender, EventArgs e)
+        {
+            int id;
+            if (int.TryParse(hfDeleteUserId.Value, out id) && id > 0)
+            {
+                AppData.DeleteUser(id);
+                pnlConfirmDeleteModal.Style["display"] = "none";
+                pnlSuccessDeleteModal.Style["display"] = "flex";
+                Bind();
             }
             else
             {
-                ShowStatus("That user no longer exists.", false);
+                pnlConfirmDeleteModal.Style["display"] = "none";
             }
+        }
 
+        protected void btnCancelDelete_Click(object sender, EventArgs e)
+        {
+            pnlConfirmDeleteModal.Style["display"] = "none";
+        }
+
+        protected void btnReturnToCustomers_Click(object sender, EventArgs e)
+        {
+            pnlSuccessDeleteModal.Style["display"] = "none";
             Bind();
         }
 
