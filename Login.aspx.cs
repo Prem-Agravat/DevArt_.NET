@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevArt.Models;
@@ -6,19 +6,22 @@ using DevArt.Models;
 namespace DevArt
 {
     /// <summary>
-    /// Sign-in screen (Figma frame 1). Registration lives on its own page,
-    /// exactly as the design lays it out.
+    /// Code-behind for Login.aspx - the customer sign-in screen.
+    /// On success, stores the signed-in user in Session and redirects
+    /// either back to the page that required login, or to Profile.aspx.
     /// </summary>
     public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Skip everything on post-backs (button clicks); only run on first load
             if (IsPostBack) return;
 
-            // Flash message handed over by Register / ResetPassword through Session.
+            // Check if Register.aspx or ResetPassword.aspx put a one-shot message in Session
             string flash = Session["AuthFlash"] as string;
             if (!string.IsNullOrEmpty(flash))
             {
+                // Remove the message so it doesn't show again on the next page load
                 Session.Remove("AuthFlash");
                 pnlMessage.Visible = true;
                 pnlMessage.CssClass = "form-alert success";
@@ -26,31 +29,42 @@ namespace DevArt
             }
         }
 
-        /// <summary>Checks the credentials against the user collection.</summary>
+        /// <summary>
+        /// Server-side validator: checks that the email + password match a stored account.
+        /// Returns IsValid = false if no matching user is found, which shows the
+        /// "Invalid credentials" error message on the form.
+        /// </summary>
         protected void cvCredentials_ServerValidate(object source, ServerValidateEventArgs args)
         {
             args.IsValid = AppData.FindUser(txtEmail.Text, txtPassword.Text) != null;
         }
 
+        /// <summary>
+        /// Handles the Login button click.
+        /// Validates credentials, stores the user in Session, then redirects.
+        /// </summary>
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            // Re-run the group on the server; a post-back that skipped JavaScript
-            // is rejected here in exactly the same way.
+            // Re-run the "SignIn" validation group on the server.
+            // This catches requests that bypassed JavaScript (e.g. curl or browser with JS off).
             Page.Validate("SignIn");
             if (!Page.IsValid) return;
 
+            // Fetch the matching user object (credentials already confirmed valid above)
             UserAccount user = AppData.FindUser(txtEmail.Text, txtPassword.Text);
 
-            // Server-side state management for the signed-in customer.
+            // Store the user object and email in Session so every page can access them
             Session["CurrentUser"] = user;
             Session["UserEmail"] = user.Email;
 
+            // Extend the session timeout to 2 hours if the user ticked "Remember me"
             if (chkRemember.Checked)
             {
                 Session.Timeout = 120;
             }
 
-            // Return to whatever page sent the visitor here, else the profile.
+            // Redirect back to whichever page sent the user here (e.g. Shipping.aspx),
+            // or fall back to their profile if no returnUrl was provided
             string returnUrl = Request.QueryString["returnUrl"];
             Response.Redirect(string.IsNullOrEmpty(returnUrl) ? "Profile.aspx" : returnUrl, false);
         }

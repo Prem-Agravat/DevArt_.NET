@@ -27,29 +27,29 @@
                     <a href="Categories.aspx" class="view-all-link">View All</a>
                 </div>
                 <div class="categories-grid">
-                    <a href="Categories.aspx?category=Torans" class="category-item">
+                    <a href="Collection.aspx?category=Torans" class="category-item">
                         <div class="category-image-wrapper">
                             <img src="Images/category_torans.jpg" alt="Torans" class="category-image" />
                         </div>
                         <span class="category-label">Torans</span>
                     </a>
-                    <a href="Categories.aspx?category=CushionCover" class="category-item">
+                    <a href="Collection.aspx?category=Cushion Covers" class="category-item">
                         <div class="category-image-wrapper">
-                            <img src="Images/category_cushion.jpg" alt="ChusionCover" class="category-image" />
+                            <img src="Images/category_cushion.jpg" alt="Cushion Covers" class="category-image" />
                         </div>
-                        <span class="category-label">ChusionCover</span>
+                        <span class="category-label">Cushion Covers</span>
                     </a>
-                    <a href="Categories.aspx?category=SofaCover" class="category-item">
+                    <a href="Collection.aspx?category=Sofa %26 Table Covers" class="category-item">
                         <div class="category-image-wrapper">
-                            <img src="Images/category_sofacover.jpg" alt="SofaCover" class="category-image" />
+                            <img src="Images/category_sofacover.jpg" alt="Sofa & Table Covers" class="category-image" />
                         </div>
-                        <span class="category-label">SofaCover</span>
+                        <span class="category-label">Sofa &amp; Table Covers</span>
                     </a>
-                    <a href="Categories.aspx?category=BedSheet" class="category-item">
+                    <a href="Collection.aspx?category=Bedsheet" class="category-item">
                         <div class="category-image-wrapper">
-                            <img src="Images/category_bedsheet.jpg" alt="BedSheet" class="category-image" />
+                            <img src="Images/category_bedsheet.jpg" alt="Bedsheets" class="category-image" />
                         </div>
-                        <span class="category-label">BedSheet</span>
+                        <span class="category-label">Bedsheets</span>
                     </a>
                 </div>
             </section>
@@ -62,10 +62,10 @@
                 </div>
                 <div class="products-grid">
                     <!-- Card 1 -->
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='ProductDetail.aspx?id=4';" style="cursor:pointer;">
                         <div class="product-image-container">
                             <img src="Images/product_cushion_set.jpg" alt="Cushion Cover Set" class="product-image" />
-                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist">
+                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=4';">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path
@@ -75,10 +75,10 @@
                             </button>
                         </div>
                         <div class="product-details">
-                            <h3 class="product-title">Cushion Cover Set</h3>
+                            <h3 class="product-title"><a href="ProductDetail.aspx?id=4" onclick="event.stopPropagation();">Cushion Cover Set</a></h3>
                             <div class="product-footer">
-                                <span class="product-price">&#8377;499</span>
-                                <button type="button" class="cart-btn" aria-label="Add to Cart">
+                                <span class="product-price">&#8377;899</span>
+                                <button type="button" class="cart-btn" aria-label="Add to Cart" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=4';">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <circle cx="9" cy="21" r="1"></circle>
@@ -91,11 +91,11 @@
                         </div>
                     </div>
                     <!-- Card 2 -->
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='ProductDetail.aspx?id=6';" style="cursor:pointer;">
                         <div class="product-image-container">
                             <img src="Images/product_ceramic_vase.jpg" alt="Artisanal Ceramic Vase"
                                 class="product-image" />
-                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist">
+                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=6';">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path
@@ -105,10 +105,10 @@
                             </button>
                         </div>
                         <div class="product-details">
-                            <h3 class="product-title">Artisanal Ceramic Vase</h3>
+                            <h3 class="product-title"><a href="ProductDetail.aspx?id=6" onclick="event.stopPropagation();">Artisanal Ceramic Vase</a></h3>
                             <div class="product-footer">
-                                <span class="product-price">&#8377;499</span>
-                                <button type="button" class="cart-btn" aria-label="Add to Cart">
+                                <span class="product-price">&#8377;1,299</span>
+                                <button type="button" class="cart-btn" aria-label="Add to Cart" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=6';">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <circle cx="9" cy="21" r="1"></circle>
@@ -121,11 +121,11 @@
                         </div>
                     </div>
                     <!-- Card 3 -->
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='ProductDetail.aspx?id=3';" style="cursor:pointer;">
                         <div class="product-image-container">
                             <img src="Images/product_velvet_pillow.jpg" alt="Velvet Accent Pillow"
                                 class="product-image" />
-                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist">
+                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=3';">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path
@@ -135,10 +135,10 @@
                             </button>
                         </div>
                         <div class="product-details">
-                            <h3 class="product-title">Velvet Accent Pillow</h3>
+                            <h3 class="product-title"><a href="ProductDetail.aspx?id=3" onclick="event.stopPropagation();">Velvet Accent Pillow</a></h3>
                             <div class="product-footer">
                                 <span class="product-price">&#8377;499</span>
-                                <button type="button" class="cart-btn" aria-label="Add to Cart">
+                                <button type="button" class="cart-btn" aria-label="Add to Cart" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=3';">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <circle cx="9" cy="21" r="1"></circle>
@@ -151,11 +151,11 @@
                         </div>
                     </div>
                     <!-- Card 4 -->
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='ProductDetail.aspx?id=8';" style="cursor:pointer;">
                         <div class="product-image-container">
                             <img src="Images/product_nesting_tables.jpg" alt="Nesting Ash Tables"
                                 class="product-image" />
-                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist">
+                            <button type="button" class="wishlist-btn" aria-label="Add to Wishlist" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=8';">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path
@@ -165,10 +165,10 @@
                             </button>
                         </div>
                         <div class="product-details">
-                            <h3 class="product-title">Nesting Ash Tables</h3>
+                            <h3 class="product-title"><a href="ProductDetail.aspx?id=8" onclick="event.stopPropagation();">Nesting Ash Tables</a></h3>
                             <div class="product-footer">
-                                <span class="product-price">&#8377;499</span>
-                                <button type="button" class="cart-btn" aria-label="Add to Cart">
+                                <span class="product-price">&#8377;6,900</span>
+                                <button type="button" class="cart-btn" aria-label="Add to Cart" onclick="event.stopPropagation(); window.location.href='ProductDetail.aspx?id=8';">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <circle cx="9" cy="21" r="1"></circle>

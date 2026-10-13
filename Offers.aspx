@@ -59,7 +59,7 @@
         <!-- DASHED CARD CONTAINER -->
         <div class="offers-dashed-container">
             <div class="offers-dashed-header">
-                <h2 class="offers-dashed-title">Your Shopping Wishlist</h2>
+                <h2 class="offers-dashed-title">Available Promotional Offers</h2>
                 <span class="offers-dashed-count">(<%= OfferCount %> ITEMS)</span>
             </div>
 
