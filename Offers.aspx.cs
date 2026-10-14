@@ -9,10 +9,67 @@ namespace DevArt
     public partial class Offers : Page
     {
         public int OfferCount { get; set; }
+        public bool IsFromCart { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) Bind();
+            if (string.Equals(Request.QueryString["action"], "setPromo", StringComparison.OrdinalIgnoreCase))
+            {
+                string code = Request.QueryString["code"];
+                if (!string.IsNullOrEmpty(code))
+                {
+                    CartService.PromoCode = code;
+                }
+                Response.ContentType = "application/json";
+                Response.Write("{\"success\":true}");
+                Response.Flush();
+                if (System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.ApplicationInstance != null)
+                {
+                    System.Web.HttpContext.Current.ApplicationInstance.CompleteRequest();
+                }
+                return;
+            }
+
+            if (!IsPostBack)
+            {
+                IsFromCart = CheckIfFromCart();
+                ViewState["IsFromCart"] = IsFromCart;
+                if (pnlOfferCopySuccessModal != null)
+                {
+                    pnlOfferCopySuccessModal.Style["display"] = "none";
+                }
+                Bind();
+            }
+            else
+            {
+                IsFromCart = ViewState["IsFromCart"] != null && (bool)ViewState["IsFromCart"];
+            }
+
+            ConfigureButtons();
+        }
+
+        private bool CheckIfFromCart()
+        {
+            if (string.Equals(Request.QueryString["from"], "cart", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (Request.UrlReferrer != null &&
+                Request.UrlReferrer.AbsolutePath.IndexOf("Cart.aspx", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ConfigureButtons()
+        {
+            if (btnReturnToCart != null)
+            {
+                btnReturnToCart.Style["display"] = IsFromCart ? "block" : "none";
+            }
         }
 
         private void Bind()
@@ -91,6 +148,7 @@ namespace DevArt
                 pnlOfferCopySuccessModal.Style["display"] = "flex";
             }
 
+            ConfigureButtons();
             Bind();
         }
 

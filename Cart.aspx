@@ -125,7 +125,7 @@
                             Text="Code is invalid or minimum spend not met." />
 
                         <div class="cart-v2-offers-link-wrapper">
-                            <a href="Offers.aspx" class="cart-v2-offers-link">&larr; View All Offers</a>
+                            <a href="Offers.aspx?from=cart" class="cart-v2-offers-link">&larr; View All Offers</a>
                         </div>
                     </div>
 
