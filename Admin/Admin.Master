@@ -17,10 +17,21 @@
                 <img src="<%= ResolveUrl("~/Images/devart-logo.png") %>" alt="DevArt" class="admin-top-logo" />
                 <span class="admin-logo-text">Dev Art <strong class="admin-panel-badge">Admin Panel</strong></span>
             </div>
-            <a href="Customers.aspx" class="admin-top-cust-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <span>Customers</span>
-            </a>
+            <div style="display:flex;align-items:center;gap:18px;">
+                <button type="button" class="admin-top-cust-btn" id="btnAdminToggleFullScreen" onclick="toggleFullScreen()" title="Full Screen" style="background:transparent;border:none;cursor:pointer;padding:0;">
+                    <svg id="adminFsExpand" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                    </svg>
+                    <svg id="adminFsCompress" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+                    </svg>
+                    <span>Full Screen</span>
+                </button>
+                <a href="Customers.aspx" class="admin-top-cust-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Customers</span>
+                </a>
+            </div>
         </header>
 
         <div class="admin-body">
@@ -63,6 +74,30 @@
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
         </div>
+        <script type="text/javascript">
+            function toggleFullScreen() {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    var el = document.documentElement;
+                    if (el.requestFullscreen) el.requestFullscreen();
+                    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+                    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                }
+            }
+
+            document.addEventListener('fullscreenchange', function() {
+                var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+                var exp = document.getElementById('adminFsExpand');
+                var cmp = document.getElementById('adminFsCompress');
+                if (exp && cmp) {
+                    exp.style.display = isFs ? 'none' : 'block';
+                    cmp.style.display = isFs ? 'block' : 'none';
+                }
+            });
+        </script>
     </form>
 </body>
 </html>

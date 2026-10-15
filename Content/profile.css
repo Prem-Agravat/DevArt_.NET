@@ -8,9 +8,11 @@
    ========================================================================== */
 
 .prof-page-wrapper {
-    max-width: 1140px;
-    margin: 30px auto 60px;
-    padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 0 60px;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
 .prof-page-title {
@@ -445,9 +447,11 @@
    Profile Page Redesign (Image 1 Layout)
    ========================================================================== */
 .prof-v2-wrapper {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 40px 40px 80px;
+    box-sizing: border-box;
 }
 
 .prof-v2-header {
@@ -684,9 +688,11 @@
    Profile Page Redesign (Image 2 - Same to Same Layout)
    ========================================================================== */
 .prof-img2-wrapper {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 30px 24px 80px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 30px 40px 80px;
+    box-sizing: border-box;
 }
 
 .prof-img2-title {

@@ -8,9 +8,11 @@
    ========================================================================== */
 
 .about-section {
-    padding: 60px 0;
-    max-width: 800px;
-    margin: 0 auto;
+    padding: 60px 40px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .about-container {
@@ -63,9 +65,11 @@
 
 /* About Us Page - Image 2 Design */
 .about-page-wrapper {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 40px 20px 60px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 40px 40px 60px;
+    box-sizing: border-box;
 }
 
 .about-hero-card {

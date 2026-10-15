@@ -109,9 +109,11 @@
    Item Detail Redesign (Image 2 - Same to Same Layout)
    ========================================================================== */
 .item-detail-wrapper {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 20px 24px 80px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 40px 80px;
+    box-sizing: border-box;
 }
 
 .item-detail-header-title {

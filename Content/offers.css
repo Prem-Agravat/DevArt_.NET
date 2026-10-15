@@ -107,9 +107,11 @@
    ========================================================================== */
 
 .offers-page-wrapper {
-    max-width: 1140px;
-    margin: 30px auto 60px;
-    padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 30px 0 60px;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
 .offers-top-bar {

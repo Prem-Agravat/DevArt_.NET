@@ -18,9 +18,11 @@ h6 {
 }
 
 .home-page {
-    max-width: 1250px;
-    margin: 0 auto;
-    padding: 0 25px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 40px;
+    box-sizing: border-box;
 }
 
 /* Hero Section */
@@ -130,7 +132,7 @@ h6 {
 
 .categories-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 25px;
 }
 
@@ -522,4 +524,3 @@ h6 {
         font-size: 22px;
     }
 }
-
