@@ -43,7 +43,7 @@
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                             </span>
-                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" TextMode="Email"
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input"
                                 placeholder="Enter your email" />
                         </div>
                         <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"

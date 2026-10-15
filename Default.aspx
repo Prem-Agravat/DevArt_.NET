@@ -195,7 +195,7 @@
                         <p class="community-subtitle">Sign up for our newsletter and receive 10% off your first order,
                             plus exclusive access to styling guides and private sales.</p>
                         <div class="newsletter-form">
-                            <asp:TextBox ID="txtEmail" runat="server" CssClass="newsletter-input" TextMode="Email"
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="newsletter-input"
                                 placeholder="Enter your email"></asp:TextBox>
                             <asp:Button ID="btnSubscribe" runat="server" Text="Subscribe" CssClass="newsletter-btn"
                                 ValidationGroup="Newsletter" OnClick="btnSubscribe_Click" />

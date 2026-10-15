@@ -47,7 +47,7 @@
                             </svg>
                         </span>
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="forgot-input"
-                            TextMode="Email" placeholder="Email" />
+                            placeholder="Email" />
                     </div>
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                         ControlToValidate="txtEmail" ValidationGroup="Forgot"

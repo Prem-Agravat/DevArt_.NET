@@ -11,7 +11,7 @@
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" novalidate="novalidate">
 
         <!-- Header -->
         <header class="site-header">
@@ -60,15 +60,6 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </a>
-
-                    <button type="button" class="header-icon" id="btnToggleFullScreen" onclick="toggleFullScreen()" title="Full Screen" style="background:transparent;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;">
-                        <svg id="fsIconExpand" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
-                        <svg id="fsIconCompress" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
-                        </svg>
-                    </button>
 
                     <asp:HyperLink ID="lnkAuth" runat="server" CssClass="login-button" NavigateUrl="~/Profile.aspx" Text="My Account" Visible="false" />
                     <button type="button" id="btnOpenAuthModal" class="login-button" onclick="openAuthModal('login')">Login / Register</button>
@@ -170,7 +161,7 @@
                                     </svg>
                                 </span>
                                 <asp:TextBox ID="mtxtEmail" runat="server" CssClass="form-input"
-                                    TextMode="Email" placeholder="Enter your email" />
+                                    placeholder="Enter your email" />
                             </div>
                             <asp:RequiredFieldValidator ID="mrfvEmail" runat="server"
                                 ControlToValidate="mtxtEmail" ValidationGroup="ModalLogin"
@@ -291,7 +282,7 @@
                             <label class="auth-label">Email Address</label>
                             <div class="input-icon-group">
                                 <asp:TextBox ID="mrtxtEmail" runat="server" CssClass="form-input no-left-icon"
-                                    TextMode="Email" placeholder="you@example.com" />
+                                    placeholder="you@example.com" />
                             </div>
                             <asp:RequiredFieldValidator ID="mrfvREmail" runat="server"
                                 ControlToValidate="mrtxtEmail" ValidationGroup="ModalRegister"
@@ -406,12 +397,18 @@
                         <div class="form-field full" style="margin-bottom:14px;">
                             <label>Email Address<span class="req">*</span></label>
                             <asp:TextBox ID="mfEmail" runat="server" CssClass="form-input"
-                                TextMode="Email" placeholder="you@example.com" />
+                                placeholder="you@example.com" />
                             <asp:RequiredFieldValidator ID="mrfvFEmail" runat="server"
                                 ControlToValidate="mfEmail" ValidationGroup="ModalForgot"
                                 CssClass="field-error" Display="Dynamic"
                                 ErrorMessage="Email is required."
                                 Text="Email is required." />
+                            <asp:RegularExpressionValidator ID="mrevFEmail" runat="server"
+                                ControlToValidate="mfEmail" ValidationGroup="ModalForgot"
+                                CssClass="field-error" Display="Dynamic"
+                                ValidationExpression="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,10}$"
+                                ErrorMessage="Enter a valid email address."
+                                Text="Enter a valid email address." />
                             <asp:CustomValidator ID="mcvFEmail" runat="server"
                                 ControlToValidate="mfEmail" ValidationGroup="ModalForgot"
                                 CssClass="field-error" Display="Dynamic"
@@ -616,30 +613,6 @@
                     openAuthModal(openPanel);
                 }
             })();
-
-            // Fullscreen toggle handler
-            function toggleFullScreen() {
-                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                    var el = document.documentElement;
-                    if (el.requestFullscreen) el.requestFullscreen();
-                    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-                    else if (el.msRequestFullscreen) el.msRequestFullscreen();
-                } else {
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                    else if (document.msExitFullscreen) document.msExitFullscreen();
-                }
-            }
-
-            document.addEventListener('fullscreenchange', function() {
-                var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
-                var exp = document.getElementById('fsIconExpand');
-                var cmp = document.getElementById('fsIconCompress');
-                if (exp && cmp) {
-                    exp.style.display = isFs ? 'none' : 'block';
-                    cmp.style.display = isFs ? 'block' : 'none';
-                }
-            });
         </script>
 
     </form>

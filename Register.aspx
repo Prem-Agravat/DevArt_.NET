@@ -73,7 +73,7 @@
                     <label class="auth-label">Email Address</label>
                     <div class="input-icon-group">
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input no-left-icon"
-                            TextMode="Email" placeholder="you@example.com" />
+                            placeholder="you@example.com" />
                     </div>
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                         ControlToValidate="txtEmail" ValidationGroup="Register"

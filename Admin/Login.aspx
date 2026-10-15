@@ -23,7 +23,7 @@
                 <div class="form-field full">
                     <label>Work Email<span class="req">*</span></label>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input"
-                        TextMode="Email" placeholder="admin@devart.com" />
+                        placeholder="admin@devart.com" />
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                         ControlToValidate="txtEmail" ValidationGroup="AdminLogin"
                         CssClass="field-error" Display="Dynamic"

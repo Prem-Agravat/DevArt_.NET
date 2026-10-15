@@ -91,11 +91,16 @@
 
                         <div class="contact-field-group">
                             <label class="contact-field-label">EMAIL ADDRESS</label>
-                            <asp:TextBox ID="txtEmail" runat="server" CssClass="contact-input" TextMode="Email" placeholder="example@email.com" />
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="contact-input" placeholder="example@email.com" />
                             <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                                 ControlToValidate="txtEmail" ValidationGroup="Contact"
                                 CssClass="field-error" Display="Dynamic"
                                 ErrorMessage="Email address is required." Text="Email address is required." />
+                            <asp:RegularExpressionValidator ID="revEmail" runat="server"
+                                ControlToValidate="txtEmail" ValidationGroup="Contact"
+                                CssClass="field-error" Display="Dynamic"
+                                ValidationExpression="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,10}$"
+                                ErrorMessage="Enter a valid email address." Text="Enter a valid email address." />
                         </div>
 
                         <div class="contact-field-group full">
