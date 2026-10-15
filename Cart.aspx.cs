@@ -14,6 +14,12 @@ namespace DevArt
         {
             if (!IsPostBack)
             {
+                string codeParam = Request.QueryString["code"] ?? Request.QueryString["promo"];
+                if (!string.IsNullOrWhiteSpace(codeParam))
+                {
+                    CartService.PromoCode = codeParam.Trim().ToUpperInvariant();
+                }
+
                 txtPromo.Text = CartService.PromoCode;
                 BindCart();
             }
