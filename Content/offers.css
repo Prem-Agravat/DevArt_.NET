@@ -1,0 +1,379 @@
+/* ==========================================================================
+   DevArt - Offers & Promotional Deals Styles
+   Page: Offers.aspx
+   ========================================================================== */
+
+/* ==========================================================================
+   Offers, orders, stats
+   ========================================================================== */
+
+.offer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.offer-card {
+    background: #ffffff;
+    border: 1px solid #f0efec;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.offer-card .kicker {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8B5E3C;
+    font-weight: 700;
+}
+
+.offer-card h3 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.offer-card p {
+    font-size: 12.5px;
+    color: #6b6b6b;
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+}
+
+.offer-code {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px dashed #d9cfc2;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: #fbf8f4;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #8B5E3C;
+    font-size: 13px;
+}
+
+.steps-how {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.step-card {
+    background: #ffffff;
+    border: 1px solid #f0efec;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.step-card .num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #8B5E3C;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.step-card h4 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.step-card p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #6b6b6b;
+    line-height: 1.7;
+}
+
+
+
+/* ==========================================================================
+   Offers Page - Design matching Image 2
+   ========================================================================== */
+
+.offers-page-wrapper {
+    max-width: 1140px;
+    margin: 30px auto 60px;
+    padding: 0 20px;
+}
+
+.offers-top-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.offers-back-arrow {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.2s;
+}
+
+.offers-back-arrow:hover {
+    background: #f4ece6;
+}
+
+.offers-page-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0;
+}
+
+/* DASHED CARD CONTAINER */
+.offers-dashed-container {
+    border: 2px dashed #B0B0B0;
+    border-radius: 18px;
+    padding: 32px 36px;
+    background: #ffffff;
+    margin-bottom: 50px;
+}
+
+.offers-dashed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.offers-dashed-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0;
+}
+
+.offers-dashed-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #888888;
+    letter-spacing: 0.8px;
+}
+
+.offers-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .offers-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .offers-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* INDIVIDUAL OFFER CARD */
+.offer-v2-card {
+    border: 1.5px solid #EAEAEA;
+    border-radius: 14px;
+    padding: 30px 22px 22px;
+    background: #ffffff;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.offer-v2-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.offer-v2-card.border-top-brown {
+    border-top: 4px solid #855335;
+}
+
+.offer-v2-card.border-top-green {
+    border-top: 4px solid #48680E;
+}
+
+.offer-v2-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.offer-v2-badge.badge-brown {
+    background: #FDF0EB;
+}
+
+.offer-v2-badge.badge-green {
+    background: #EEF5E5;
+}
+
+.offer-v2-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.offer-v2-headline.brown {
+    color: #855335;
+}
+
+.offer-v2-headline.green {
+    color: #48680E;
+}
+
+.offer-v2-subhead {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 12px;
+}
+
+.offer-v2-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0 0 20px;
+    flex: 1;
+}
+
+.offer-v2-code-box {
+    width: 100%;
+    background: #F7F6F5;
+    border: 1.5px dashed #D0C0B5;
+    border-radius: 10px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.offer-v2-code-text {
+    font-family: 'DM Sans', monospace, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+    letter-spacing: 0.8px;
+}
+
+.offer-v2-copy-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.offer-v2-copy-btn:hover {
+    background: #eae6e3;
+}
+
+/* HOW TO REDEEM SECTION */
+.redeem-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.redeem-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 28px;
+}
+
+.redeem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .redeem-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.redeem-card {
+    border: 1px solid #EAEAEA;
+    border-radius: 14px;
+    padding: 32px 24px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.redeem-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #855335;
+    color: #855335;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.redeem-step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 10px;
+}
+
+.redeem-step-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.55;
+    margin: 0;
+}
+

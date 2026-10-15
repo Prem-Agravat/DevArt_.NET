@@ -1,0 +1,367 @@
+/* ==========================================================================
+   DevArt - Shipping & Delivery Details Styles
+   Page: Shipping.aspx
+   ========================================================================== */
+
+/* ==========================================================================
+   Shipping Page - Design matching Image 2
+   ========================================================================== */
+
+.ship-page-wrapper {
+    max-width: 1140px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+.ship-page-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #111111;
+    text-align: center;
+    margin: 0 0 32px;
+}
+
+.ship-container {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 36px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .ship-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* LEFT COLUMN - Dashed Card */
+.ship-dashed-card {
+    border: 2px dashed #B0B0B0;
+    border-radius: 16px;
+    padding: 32px 36px;
+    background: #ffffff;
+}
+
+.ship-nav-row {
+    margin-bottom: 24px;
+}
+
+.ship-return-cart-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8C5535;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.ship-return-cart-link:hover {
+    color: #6E4123;
+    text-decoration: underline;
+}
+
+.ship-steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #777777;
+}
+
+.ship-step.active {
+    font-weight: 700;
+    color: #8C5535;
+}
+
+.ship-step-sep {
+    color: #aaaaaa;
+}
+
+.ship-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 20px;
+}
+
+.ship-section-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0;
+}
+
+.ship-edit-address-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #8C5535;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.ship-edit-address-link:hover {
+    color: #6E4123;
+    text-decoration: underline;
+}
+
+/* Address Cards */
+.ship-address-card {
+    border: 1.5px solid #E5E5E5;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #ffffff;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.ship-address-card:hover {
+    border-color: #D0C0B5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.ship-address-card.selected {
+    border-color: #D0C0B5;
+    background: #ffffff;
+}
+
+.ship-address-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #FDF0EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ship-address-info {
+    flex: 1;
+}
+
+.ship-address-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 4px;
+}
+
+.ship-address-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #555555;
+    line-height: 1.45;
+}
+
+.ship-address-phone {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #555555;
+    margin-top: 6px;
+}
+
+.ship-address-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+.ship-address-radio input[type="radio"] {
+    accent-color: #8C5535;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Add New Address Card */
+.ship-add-address-card {
+    border: 1.5px solid #E5E5E5;
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    text-decoration: none;
+    margin-bottom: 28px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.ship-add-address-card:hover {
+    border-color: #8C5535;
+    background: #fafaf9;
+}
+
+.ship-add-address-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+}
+
+/* Actions Row */
+.ship-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.ship-footer-return {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8C5535;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.ship-footer-return:hover {
+    color: #6E4123;
+    text-decoration: underline;
+}
+
+.ship-continue-btn {
+    height: 48px;
+    padding: 0 28px;
+    background: #855335;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(133, 83, 53, 0.2);
+}
+
+.ship-continue-btn:hover {
+    background: #6e4125;
+    box-shadow: 0 6px 16px rgba(110, 65, 37, 0.3);
+}
+
+/* RIGHT COLUMN - Order Summary */
+.ship-summary-card {
+    border: 1px solid #EAEAEA;
+    border-radius: 16px;
+    padding: 28px 24px;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.ship-summary-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 20px;
+}
+
+.ship-summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ship-item-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.ship-item-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: #f5f5f5;
+    border: 1px solid #eee;
+}
+
+.ship-item-details {
+    flex: 1;
+}
+
+.ship-item-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 2px;
+}
+
+.ship-item-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    color: #777777;
+}
+
+.ship-item-price {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.ship-summary-divider {
+    height: 1px;
+    background: #EEEEEE;
+    margin: 20px 0;
+}
+
+.ship-summary-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.ship-summary-line .label {
+    color: #555555;
+}
+
+.ship-summary-line .value {
+    font-weight: 600;
+    color: #111111;
+}
+
+.ship-summary-line .value.muted {
+    font-weight: 400;
+    font-size: 12.5px;
+    color: #777777;
+}
+
+.ship-summary-line.total {
+    margin-bottom: 0;
+}
+
+.ship-summary-line.total .label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.ship-summary-line.total .value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111111;
+}
+

@@ -1,0 +1,270 @@
+/* ==========================================================================
+   DevArt - Order History & Tracking Styles
+   Page: MyOrders.aspx
+   ========================================================================== */
+
+.stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin-bottom: 26px;
+}
+
+.stat-tile {
+    background: #ffffff;
+    border: 1px solid #f0efec;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.stat-tile .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #8c8c8c;
+    margin-bottom: 8px;
+}
+
+.stat-tile .value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #17263d;
+}
+
+.order-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border: 1px solid #f0efec;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #ffffff;
+}
+
+.order-row .meta strong {
+    display: block;
+    font-size: 13.5px;
+}
+
+.order-row .meta span {
+    font-size: 11.5px;
+    color: #8c8c8c;
+}
+
+.pill {
+    display: inline-block;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.pill-green {
+    background: #eef7f0;
+    color: #2e7d4f;
+}
+
+.pill-blue {
+    background: #eef2fb;
+    color: #3c5896;
+}
+
+.pill-amber {
+    background: #fdf4e7;
+    color: #a9722a;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #8c8c8c;
+    font-size: 13px;
+}
+
+
+/* My Orders - Image 2 Design */
+.myorders-hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: #111111;
+    text-align: center;
+    margin: 32px 0 28px;
+}
+
+.myorders-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.myorders-section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 4px;
+}
+
+.myorders-section-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #666666;
+    margin: 0;
+}
+
+.myorders-filter-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.myorders-filter-box .filter-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: #555555;
+}
+
+.myorders-filter-select {
+    height: 38px;
+    padding: 0 32px 0 14px;
+    background: #EFF2F9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 12px center;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #111111;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.myorders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.myorders-card {
+    background: #ffffff;
+    border: 1px solid #EAEAEA;
+    border-left: 4px solid #855335;
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.myorders-card:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.myorders-card-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.myorders-thumb {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    background: #f8f8f8;
+}
+
+.myorders-card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.myorders-card-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 4px;
+}
+
+.myorders-card-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #666666;
+    margin: 0 0 8px;
+}
+
+.myorders-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.myorders-status-pill {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: #FAF0E6;
+    color: #A6633C;
+}
+
+.myorders-status-pill.delivered {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.myorders-status-pill.transit,
+.myorders-status-pill.in-transit {
+    background: #FAF0E6;
+    color: #A6633C;
+}
+
+.myorders-track-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #855335;
+    background: #FFF6F0;
+    border: 1px solid #F0D9CB;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.myorders-track-pill:hover {
+    background: #855335;
+    color: #ffffff;
+    border-color: #855335;
+}
+
+.myorders-track-pill:hover svg {
+    stroke: #ffffff;
+}
+
+.myorders-card-price {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #111111;
+}
+
