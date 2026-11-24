@@ -122,6 +122,7 @@
     <Content Include="assests\category_torans.jpg" />
     <Content Include="Collection.aspx" />
     <Content Include="assests\community_workspace.jpg" />
+    <Content Include="Global.asax" />
     <Content Include="Default.aspx" />
     <Content Include="assests\devart-logo.png" />
     <Content Include="assests\hero_background.jpg" />
@@ -195,6 +196,9 @@
     </Compile>
     <Compile Include="Collection.aspx.designer.cs">
       <DependentUpon>Collection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

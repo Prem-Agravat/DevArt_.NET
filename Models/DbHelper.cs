@@ -19,9 +19,30 @@ namespace DevArt.Models
     {
         // ----------------------------------------------------------------
         // Single shared connection string pointing to Database1.mdf
+        // Reads from Web.config (DevArtDB) with dynamic fallback to App_Data
         // ----------------------------------------------------------------
-        private static readonly string connectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\RKU\sem 5\DevArt\App_Data\Database1.mdf;Integrated Security=True";
+        private static string connectionString
+        {
+            get
+            {
+                var cs = System.Configuration.ConfigurationManager.ConnectionStrings["DevArtDB"];
+                if (cs != null && !string.IsNullOrEmpty(cs.ConnectionString))
+                {
+                    return cs.ConnectionString;
+                }
+
+                string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory") as string;
+                if (string.IsNullOrEmpty(dataDir) && System.Web.HttpContext.Current != null)
+                {
+                    dataDir = System.Web.HttpContext.Current.Server.MapPath("~/App_Data");
+                }
+                if (string.IsNullOrEmpty(dataDir))
+                {
+                    dataDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data");
+                }
+                return string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0}\Database1.mdf;Integrated Security=True", dataDir);
+            }
+        }
 
 
         // ================================================================
