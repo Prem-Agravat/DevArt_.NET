@@ -63,6 +63,7 @@ namespace DevArt
             else
             {
                 user.Password = txtNewPassword.Text;
+                AppData.UpdatePassword(user.Id, txtNewPassword.Text);
             }
 
             // Close the recovery window behind us.

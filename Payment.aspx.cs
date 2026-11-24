@@ -82,32 +82,55 @@ namespace DevArt
             UserAccount user = (UserAccount)Session["CurrentUser"];
             Address shipTo = ShipTo;
 
+            // Resolve address ID from session (stored as int)
+            int addressId = Session[CartService.ShipToKey] is int ? (int)Session[CartService.ShipToKey] : 0;
+            if (addressId <= 0 && user != null)
+            {
+                var addrs = AppData.AddressesForUser(user.Id);
+                addressId = addrs.Count > 0 ? addrs[0].Id : 1;
+            }
+
+            // Look up the offer ID from the promo code (null if no promo applied)
+            int? offerId = null;
+            Offer appliedOffer = AppData.FindOffer(CartService.PromoCode);
+            if (appliedOffer != null) offerId = appliedOffer.Id;
+
+            // Place the order in the database (Orders + OrderItems + Payments tables)
+            string orderNumber = AppData.PlaceOrder(
+                userId       : user.Id,
+                addressId    : addressId,
+                offerId      : offerId,
+                subtotal     : CartService.SubTotal,
+                discount     : CartService.Discount,
+                delivery     : CartService.Shipping,
+                paymentMethod: "COD (Cash On Delivery)",
+                items        : CartService.Items
+            );
+
+            // Build a lightweight Order object for the confirmation modal display
             Order order = new Order
             {
-                OrderNumber = AppData.NextOrderNumber(),
+                OrderNumber   = orderNumber,
                 CustomerEmail = user.Email,
-                CustomerName = user.FullName,
-                PlacedOn = DateTime.Today,
-                Status = "Pending",
+                CustomerName  = user.FullName,
+                PlacedOn      = DateTime.Today,
+                Status        = "Pending",
                 PaymentMethod = "COD (Cash On Delivery)",
-                SubTotal = CartService.SubTotal,
-                Discount = CartService.Discount,
-                Shipping = CartService.Shipping,
-                ShipTo = shipTo
+                SubTotal      = CartService.SubTotal,
+                Discount      = CartService.Discount,
+                Shipping      = CartService.Shipping,
+                ShipTo        = shipTo
             };
-
             foreach (CartItem line in CartService.Items)
             {
                 order.Lines.Add(new OrderLine
                 {
                     ProductName = line.Name,
-                    Variant = line.Variant,
-                    Quantity = line.Quantity,
-                    Rate = line.Rate
+                    Variant     = line.Variant,
+                    Quantity    = line.Quantity,
+                    Rate        = line.Rate
                 });
             }
-
-            AppData.AddOrder(order);
 
             // Populate Modal Data
             litModalOrderNum.Text = order.OrderNumber;

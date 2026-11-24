@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevArt.Models;
@@ -54,8 +54,12 @@ namespace DevArt
             Page.Validate("Address");
             if (!Page.IsValid) return;
 
+            UserAccount user = Session["CurrentUser"] as UserAccount;
+            int userId = user != null ? user.Id : 1;
+
             Address address = new Address
             {
+                UserId = userId,
                 FullName = txtName.Text.Trim(),
                 Phone = txtPhone.Text.Trim(),
                 Line1 = txtLine1.Text.Trim(),

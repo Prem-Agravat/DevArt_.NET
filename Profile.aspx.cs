@@ -208,6 +208,7 @@ namespace DevArt
             if (user != null)
             {
                 user.Password = txtNewPassword.Text;
+                AppData.UpdatePassword(user.Id, txtNewPassword.Text);
                 Session["CurrentUser"] = user;
             }
 

@@ -378,6 +378,7 @@
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\CartService.cs" />
     <Compile Include="Models\AppData.cs" />
+    <Compile Include="Models\DbHelper.cs" />
     <Compile Include="Models\ValidationRules.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>

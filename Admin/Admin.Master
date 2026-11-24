@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">DevArt Admin</asp:ContentPlaceHolder></title>
-    <link href="<%= ResolveUrl("~/Content/Site.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Content/Site.css") %>?v=3" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>

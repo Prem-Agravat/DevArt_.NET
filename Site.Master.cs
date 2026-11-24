@@ -85,7 +85,7 @@ namespace DevArt
             string pass = mtxtPassword.Text;
 
             // Admin check
-            if (string.Equals(email, "admin@devart.com", StringComparison.OrdinalIgnoreCase) && pass == "Admin@123")
+            if (DbHelper.AdminExists(email, pass) || (string.Equals(email, "admin@devart.com", StringComparison.OrdinalIgnoreCase) && pass == "Admin@123"))
             {
                 args.IsValid = true;
                 return;
@@ -324,6 +324,7 @@ namespace DevArt
             else
             {
                 user.Password = mrstPassword.Text;
+                AppData.UpdatePassword(user.Id, mrstPassword.Text);
             }
 
             // Cleanup session

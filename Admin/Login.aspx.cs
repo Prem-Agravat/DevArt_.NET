@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,9 +20,11 @@ namespace DevArt.Admin
 
         protected void cvCredentials_ServerValidate(object source, ServerValidateEventArgs args)
         {
+            string email = txtEmail.Text.Trim();
+            string pass = txtPassword.Text;
             args.IsValid =
-                string.Equals(txtEmail.Text.Trim(), StaffEmail, StringComparison.OrdinalIgnoreCase) &&
-                txtPassword.Text == StaffPassword;
+                DevArt.Models.DbHelper.AdminExists(email, pass) ||
+                (string.Equals(email, StaffEmail, StringComparison.OrdinalIgnoreCase) && pass == StaffPassword);
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

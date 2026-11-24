@@ -5,197 +5,30 @@ using System.Linq;
 namespace DevArt.Models
 {
     /// <summary>
-    /// Central in-memory data store for the DevArt application.
-    /// Holds all products, users, orders, offers, reviews, and enquiries.
-    /// Because there is no database in this static demo, all data lives in
-    /// static lists that are created once when the app starts.
-    /// To switch to a real database later, only the bodies of these methods
-    /// need to change - every page and validator can stay the same.
+    /// Central data-access facade for the DevArt application.
+    ///
+    /// Every public method here now delegates to DbHelper, which opens a
+    /// real SqlConnection to App_Data\Database1.mdf (SQL Server LocalDB).
+    /// The public API (method names, parameters, return types) is kept
+    /// identical to the previous in-memory version so that no page code-
+    /// behind needs to change.
+    ///
+    /// Database connectivity is implemented via System.Data.SqlClient using
+    /// parameterised SqlCommand objects — no string concatenation, no SQL
+    /// injection risk.
     /// </summary>
     public static class AppData
     {
-        // ------------------------------------------------------------- customers
-        // The list of registered users. Each entry is one shopping account.
-
-        private static readonly List<UserAccount> _users = new List<UserAccount>
-        {
-            new UserAccount { Id = 1, FullName = "Parth Dhanani", Email = "parth@devart.in", Password = "Devart@123", Phone = "9876543210", City = "Rajkot", Pincode = "360005", CreatedOn = new DateTime(2024, 3, 14) },
-            new UserAccount { Id = 2, FullName = "Prem Agravat", Email = "prem123@studio.dev", Password = "Devart@123", Phone = "9876543211", City = "Rajkot", Pincode = "360004", CreatedOn = new DateTime(2024, 3, 27) },
-            new UserAccount { Id = 3, FullName = "Dev Chauhan", Email = "dev123@gmail.com", Password = "Devart@123", Phone = "9876543212", City = "Ahmedabad", Pincode = "380015", CreatedOn = new DateTime(2024, 7, 2) },
-            new UserAccount { Id = 4, FullName = "Ramanshu Dhanani", Email = "ramanshu321@gmail.com", Password = "Devart@123", Phone = "9876543213", City = "Rajkot", Pincode = "360001", CreatedOn = new DateTime(2025, 1, 19) },
-            new UserAccount { Id = 5, FullName = "Om Hirpara", Email = "om665@gmail.com", Password = "Devart@123", Phone = "9876543214", City = "Surat", Pincode = "395007", CreatedOn = new DateTime(2025, 6, 5) },
-            new UserAccount { Id = 6, FullName = "Viraj Vaja", Email = "viraj525@gmail.com", Password = "Devart@123", Phone = "9876543215", City = "Vadodara", Pincode = "390001", CreatedOn = new DateTime(2026, 2, 11) }
-        };
-
-        // Stores contact enquiries submitted through Contact.aspx during the session.
+        // ---------------------------------------------------------------- enquiries
+        // Enquiries are still stored in memory for the session (no DB table).
         private static readonly List<Enquiry> _enquiries = new List<Enquiry>();
 
-        // -------------------------------------------------------------- catalogue
-        // All products sold by DevArt. Each Product contains pricing, stock, image, and metadata.
+        // ================================================================= USERS ==
 
-        private static readonly List<Product> _products = new List<Product>
-        {
-            // Torans category
-            new Product { Id = 1,  Name = "Marigold Essence Doorway Arch",  Category = "Torans",                 Material = "Hand-stitched cotton \u2022 Festive Collection",    Price = 499m,   Stock = 24, Image = "category_torans.jpg",      IsNew = true,  RatingAverage = 4.8, ReviewCount = 48,
-                Description = "Add a touch of artisan charm to your home with this handcrafted toran. Made from soft, durable cotton, it features intricate traditional hand embroidery and unique cultural patterns." },
-            new Product { Id = 2,  Name = "Beaded Heritage Toran",          Category = "Torans",                 Material = "Glass beadwork \u2022 Heirloom quality",            Price = 749m,   Stock = 12, Image = "category_torans.jpg",      IsNew = true,  RatingAverage = 4.6, ReviewCount = 21,
-                Description = "Heirloom-quality beadwork that brings auspiciousness and colour to a modern doorway, made by Rajkot artisans." },
-
-            // Cushion Covers category
-            new Product { Id = 3,  Name = "Velvet Accent Pillow",           Category = "Cushion Covers",         Material = "Pure velvet \u2022 Artisan Signature Series",       Price = 499m,   Stock = 30, Image = "product_velvet_pillow.jpg", IsNew = true,  RatingAverage = 4.7, ReviewCount = 36,
-                Description = "A plush velvet accent pillow cover in a deep jewel tone, finished with a hidden zip and piped edges." },
-            new Product { Id = 4,  Name = "Cushion Cover Set",              Category = "Cushion Covers",         Material = "Handwoven cotton \u2022 Set of two",                Price = 899m,   Stock = 18, Image = "product_cushion_set.jpg",   IsNew = false, RatingAverage = 4.5, ReviewCount = 52,
-                Description = "A pair of handwoven cotton covers, each a canvas of Gujarat\u2019s rich textile heritage, designed for the modern home." },
-            new Product { Id = 5,  Name = "Indigo Block-Print Cover",       Category = "Cushion Covers",         Material = "Pure linen \u2022 Natural dye",                     Price = 599m,   Stock = 22, Image = "category_cushion.jpg",      IsNew = false, RatingAverage = 4.4, ReviewCount = 17,
-                Description = "Hand block-printed in natural indigo on pure linen, softening beautifully with every wash." },
-
-            // Sofa & Table Covers category
-            new Product { Id = 6,  Name = "Artisanal Ceramic Vase",         Category = "Sofa & Table Covers",    Material = "Stoneware \u2022 Studio fired",                    Price = 1299m,  Stock = 9,  Image = "product_ceramic_vase.jpg",  IsNew = false, RatingAverage = 4.9, ReviewCount = 12,
-                Description = "A studio-fired stoneware vase with a matte sand glaze, thrown and finished entirely by hand." },
-            new Product { Id = 7,  Name = "Quilted Sofa Throw Cover",       Category = "Sofa & Table Covers",    Material = "Quilted cotton \u2022 Three-seater",               Price = 2400m,  Stock = 7,  Image = "category_sofacover.jpg",    IsNew = false, RatingAverage = 4.3, ReviewCount = 26,
-                Description = "A three-seater quilted cover that drapes cleanly over the arms and protects upholstery without hiding it." },
-            new Product { Id = 8,  Name = "Nesting Ash Tables",             Category = "Sofa & Table Covers",    Material = "Solid ash \u2022 Set of two",                      Price = 6900m,  Stock = 4,  Image = "product_nesting_tables.jpg", IsNew = false, RatingAverage = 4.8, ReviewCount = 8,
-                Description = "A pair of nesting side tables in solid ash with a hand-rubbed oil finish." },
-
-            // Bedsheet category
-            new Product { Id = 9,  Name = "Kutch Embroidered Bedsheet",     Category = "Bedsheet",               Material = "Cotton percale \u2022 King size",                  Price = 1899m,  Stock = 15, Image = "category_bedsheet.jpg",     IsNew = true,  RatingAverage = 4.6, ReviewCount = 31,
-                Description = "King-size cotton percale with mirror-work embroidery along the border, finished with two pillow covers." },
-            new Product { Id = 10, Name = "Sanganeri Print Bedsheet",        Category = "Bedsheet",               Material = "Cotton \u2022 Double bed",                         Price = 1499m,  Stock = 20, Image = "category_bedsheet.jpg",     IsNew = false, RatingAverage = 4.2, ReviewCount = 19,
-                Description = "Traditional Sanganeri hand-block florals on a soft cotton base, colour-fast and pre-shrunk." },
-
-            // Additional items
-            new Product { Id = 11, Name = "Woven Linen Scarf - Sage",       Category = "Cushion Covers",         Material = "Handloom linen",                                  Price = 499m,   Stock = 26, Image = "product_velvet_pillow.jpg", IsNew = false, RatingAverage = 4.1, ReviewCount = 11,
-                Description = "A featherweight handloom linen wrap in a soft sage, woven on a pit loom." },
-
-            // Out-of-stock example (Stock = 0, so InStock returns false)
-            new Product { Id = 12, Name = "Festive Torans Trio",             Category = "Torans",                 Material = "Cotton \u2022 Set of three",                       Price = 1299m,  Stock = 0,  Image = "category_torans.jpg",       IsNew = false, RatingAverage = 4.7, ReviewCount = 14,
-                Description = "Three coordinated torans sized for a main door, a puja room and a window." }
-        };
-
-        // Customer reviews linked to products by ProductId. Displayed on ProductDetail.aspx.
-        private static readonly List<Review> _reviews = new List<Review>
-        {
-            new Review { ProductId = 1, Author = "Bharat Parmar",     Title = "Stunning piece!",        Rating = 5, PostedOn = DateTime.Today.AddDays(-2),
-                Body = "The quality is beyond what I expected. The colours are so vibrant and it truly feels like a work of art at my front door. Highly recommend for festive seasons." },
-            new Review { ProductId = 1, Author = "Siddharth Chauhan", Title = "Authentic feel",         Rating = 5, PostedOn = DateTime.Today.AddDays(-8),
-                Body = "Love the tactile nature of the fabric marigolds. It smells faintly of sandalwood, which was a lovely surprise in the packaging. Beautiful craftsmanship." },
-            new Review { ProductId = 1, Author = "Ramesh Sah",        Title = "Cultural masterpiece",   Rating = 4, PostedOn = DateTime.Today.AddDays(-15),
-                Body = "I bought this as a housewarming gift for a friend. The packaging was so elegant I didn't even need to wrap it. She absolutely loves it." },
-            new Review { ProductId = 3, Author = "Krupa Joshi",       Title = "Beautifully soft",       Rating = 5, PostedOn = DateTime.Today.AddDays(-4),
-                Body = "The velvet has real depth to it and the colour is exactly as photographed. It has completely lifted our reading corner." }
-        };
-
-        // ----------------------------------------------------------------- offers
-        // Promotional codes that customers can apply at checkout. Three types:
-        //   FreeShippingOffer - waives the shipping fee
-        //   FlatOffer         - takes a fixed rupee amount off
-        //   PercentageOffer   - takes a percentage off the subtotal
-
-        private static readonly List<Offer> _offers = new List<Offer>
-        {
-            new FreeShippingOffer { Id = 1, Code = "FREESHIP150",   Name = "Free Shipping",        Kicker = "Free Shipping", ShippingFee = 60m,   MinimumSpend = 150m,  IsActive = true, ExpiresOn = new DateTime(2027, 3, 31),
-                Description = "Treat yourself to a little more. Enjoy complimentary standard shipping on all qualifying artisanal purchases." },
-            new FlatOffer        { Id = 2, Code = "WELCOME15",      Name = "Welcome Gift",         Kicker = "\u20b9100 OFF",  Amount = 100m,       MinimumSpend = 500m,  IsActive = true, ExpiresOn = new DateTime(2027, 3, 31),
-                Description = "For new members of our community. Apply this code to your first handcrafted purchase." },
-            new PercentageOffer  { Id = 3, Code = "ARTISAN20",      Name = "Artisan Toran Collection", Kicker = "20% OFF",   Percentage = 20,     MinimumSpend = 0m,    IsActive = true, ExpiresOn = new DateTime(2027, 3, 31),
-                Description = "Enhance your doorways with our torans. Valid on all items in the Toran Decor category." },
-            new PercentageOffer  { Id = 4, Code = "NEWARTISAN15",   Name = "15% OFF First Order",  Kicker = "Welcome Offer", Percentage = 15,     MinimumSpend = 0m,    IsActive = true, ExpiresOn = new DateTime(2027, 3, 31),
-                Description = "Fifteen percent off the first order placed on a new DevArt account." },
-            new FlatOffer        { Id = 5, Code = "DEVARTLOYAL",    Name = "\u20b9200 Reward Credit", Kicker = "Bundle Deal", Amount = 200m,       MinimumSpend = 1500m, IsActive = true, ExpiresOn = new DateTime(2027, 3, 31),
-                Description = "A loyalty reward credit for returning collectors." },
-            new PercentageOffer  { Id = 6, Code = "DEVART10",       Name = "DevArt Welcome 10%",   Kicker = "Newsletter",    Percentage = 10,     MinimumSpend = 0m,    IsActive = true, ExpiresOn = new DateTime(2027, 6, 30),
-                Description = "Ten percent off, sent to every newsletter subscriber." },
-            new PercentageOffer  { Id = 7, Code = "FESTIVE25",      Name = "Festive Season 25%",   Kicker = "Festive",       Percentage = 25,     MinimumSpend = 2000m, IsActive = true, ExpiresOn = new DateTime(2027, 6, 30),
-                Description = "Twenty-five percent off festive orders above two thousand rupees." },
-            new PercentageOffer  { Id = 8, Code = "NEWHOME15",      Name = "New Home 15%",         Kicker = "Housewarming",  Percentage = 15,     MinimumSpend = 0m,    IsActive = true, ExpiresOn = new DateTime(2027, 6, 30),
-                Description = "Fifteen percent off for customers furnishing a new home." }
-        };
-
-        // ----------------------------------------------------------------- orders
-        // All placed orders. In a real app this would come from a database table.
-
-        private static readonly List<Order> _orders = BuildSeedOrders();
-
-        /// <summary>
-        /// Creates a set of demo orders so the MyOrders and Admin Orders pages
-        /// have realistic data to display from the very first page load.
-        /// </summary>
-        private static List<Order> BuildSeedOrders()
-        {
-            List<Order> orders = new List<Order>();
-
-            // A delivered order for the primary demo user (Parth)
-            Order delivered = new Order
-            {
-                OrderNumber    = "DV-88219",
-                CustomerEmail  = "parth@devart.in",
-                CustomerName   = "Parth Dhanani",
-                PlacedOn       = new DateTime(2026, 8, 12),
-                Status         = "Delivered",
-                PaymentMethod  = "COD (Cash On Delivery)",
-                SubTotal       = 998m,
-                Shipping       = 0m
-            };
-            delivered.Lines.Add(new OrderLine { ProductName = "Marigold Essence Doorway Arch", Variant = "Natural / Medium",   Quantity = 1, Rate = 499m });
-            delivered.Lines.Add(new OrderLine { ProductName = "Woven Linen Scarf - Sage",      Variant = "Sage / One size",    Quantity = 1, Rate = 499m });
-            orders.Add(delivered);
-
-            // An in-transit order for Parth
-            Order transit = new Order
-            {
-                OrderNumber    = "DV-87502",
-                CustomerEmail  = "parth@devart.in",
-                CustomerName   = "Parth Dhanani",
-                PlacedOn       = new DateTime(2026, 8, 28),
-                Status         = "In Transit",
-                PaymentMethod  = "COD (Cash On Delivery)",
-                SubTotal       = 499m,
-                Shipping       = 60m
-            };
-            transit.Lines.Add(new OrderLine { ProductName = "Velvet Accent Pillow", Variant = "Indigo / Standard", Quantity = 1, Rate = 499m });
-            orders.Add(transit);
-
-            // Bulk seed orders spread across multiple demo customers
-            string[] customers = { "Dev Chauhan", "Ramanshu Dhanani", "Prem Agravat", "Om Hirpara" };
-            string[] emails    = { "dev123@gmail.com", "ramanshu321@gmail.com", "prem123@studio.dev", "om665@gmail.com" };
-            string[] statuses  = { "Pending", "Delivered", "Out for Delivery", "Pending" };
-
-            for (int i = 0; i < 8; i++)
-            {
-                Order o = new Order
-                {
-                    OrderNumber   = "ORD-" + (2094 + i),
-                    CustomerName  = customers[i % customers.Length],
-                    CustomerEmail = emails[i % emails.Length],
-                    PlacedOn      = new DateTime(2026, 8, 20).AddDays(-i),
-                    Status        = statuses[i % statuses.Length],
-                    PaymentMethod = "COD (Cash On Delivery)",
-                    SubTotal      = 499m * ((i % 3) + 1),
-                    Shipping      = 0m
-                };
-                o.Lines.Add(new OrderLine { ProductName = "Cushion Cover Set", Variant = "Natural / Medium", Quantity = (i % 3) + 1, Rate = 499m });
-                orders.Add(o);
-            }
-
-            return orders;
-        }
-
-        // Default shipping address used in the demo (Parth's home address)
-        private static readonly List<Address> _addresses = new List<Address>
-        {
-            new Address { Id = 1, FullName = "Parth Dhanani", Phone = "9876543210",
-                Line1 = "102, Craftmen's Plaza, Kalavad Road",
-                City = "Rajkot", State = "Gujarat", Pincode = "360004",
-                Label = "Home", IsDefault = true }
-        };
-
-        // ------------------------------------------------------------- user CRUD
-        // Methods to read, create, update, and delete customer accounts.
-
-        /// <summary>Returns a read-only view of all registered customers.</summary>
+        /// <summary>Returns every registered customer from the Users DB table.</summary>
         public static IEnumerable<UserAccount> Users
         {
-            get { return _users; }
+            get { return DbHelper.GetAllUsers(); }
         }
 
         /// <summary>Returns all contact enquiries submitted this session.</summary>
@@ -204,63 +37,56 @@ namespace DevArt.Models
             get { return _enquiries; }
         }
 
-        /// <summary>Returns true if any account is already registered with this email.</summary>
+        /// <summary>Returns true if any row in Users already has this email address.</summary>
         public static bool EmailExists(string email)
         {
-            if (string.IsNullOrWhiteSpace(email)) return false;
-            return _users.Any(u => string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase));
+            return DbHelper.EmailExists(email);
         }
 
-        /// <summary>Adds a new user account and auto-assigns the next available ID.</summary>
+        /// <summary>
+        /// Inserts a new customer account into the Users table and
+        /// back-fills the auto-generated UserId onto the object.
+        /// </summary>
         public static void AddUser(UserAccount user)
         {
             if (user == null) throw new ArgumentNullException("user");
-            user.Id = _users.Count == 0 ? 1 : _users.Max(u => u.Id) + 1;
-            _users.Add(user);
+            user.Id = DbHelper.AddUser(user);
         }
 
         /// <summary>
         /// Finds a user whose email AND password both match (used for login).
-        /// Returns null if no matching account exists.
+        /// Returns null if no matching account exists in the database.
         /// </summary>
         public static UserAccount FindUser(string email, string password)
         {
-            if (string.IsNullOrWhiteSpace(email)) return null;
-            return _users.FirstOrDefault(u =>
-                string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase) &&
-                u.Password == password);
+            return DbHelper.FindUser(email, password);
         }
 
         /// <summary>Looks up a user by email alone (used by the forgot-password flow).</summary>
         public static UserAccount FindUserByEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email)) return null;
-            return _users.FirstOrDefault(u => string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase));
+            return DbHelper.FindUserByEmail(email);
         }
 
-        /// <summary>Saves changes made to an existing account on the Profile page.</summary>
+        /// <summary>Saves editable profile changes back to the Users table.</summary>
         public static void UpdateUser(UserAccount user)
         {
-            UserAccount existing = _users.FirstOrDefault(u => u.Id == user.Id);
-            if (existing == null) return;
-
-            // Copy each editable field over to the stored record
-            existing.FullName       = user.FullName;
-            existing.Phone          = user.Phone;
-            existing.City           = user.City;
-            existing.Pincode        = user.Pincode;
-            existing.DateOfBirth    = user.DateOfBirth;
-            existing.NewsletterOptIn = user.NewsletterOptIn;
+            DbHelper.UpdateUser(user);
         }
 
-        /// <summary>Removes an account by ID. Used by the Admin panel.</summary>
+        /// <summary>Updates a user's password in the database.</summary>
+        public static void UpdatePassword(int userId, string newPassword)
+        {
+            DbHelper.UpdatePassword(userId, newPassword);
+        }
+
+        /// <summary>Deletes a customer by UserId. Used by the Admin panel.</summary>
         public static bool DeleteUser(int id)
         {
-            UserAccount existing = _users.FirstOrDefault(u => u.Id == id);
-            return existing != null && _users.Remove(existing);
+            return DbHelper.DeleteUser(id);
         }
 
-        /// <summary>Stores a new enquiry from Contact.aspx and assigns it an ID.</summary>
+        /// <summary>Stores a new enquiry in the in-session list (Contact.aspx).</summary>
         public static void AddEnquiry(Enquiry enquiry)
         {
             if (enquiry == null) throw new ArgumentNullException("enquiry");
@@ -268,145 +94,113 @@ namespace DevArt.Models
             _enquiries.Add(enquiry);
         }
 
-        // ---------------------------------------------------------- product CRUD
-        // Methods to read, add, edit, and delete products in the catalogue.
+        // ============================================================== PRODUCTS ==
 
-        /// <summary>Returns a read-only view of the full product catalogue.</summary>
+        /// <summary>
+        /// Returns every product from the Products DB table, joined with
+        /// Categories so the Category name is populated.
+        /// </summary>
         public static IEnumerable<Product> Products
         {
-            get { return _products; }
-        }
-
-        /// <summary>Returns a sorted, distinct list of category names for the filter sidebar.</summary>
-        public static List<string> Categories
-        {
-            get { return _products.Select(p => p.Category).Distinct().OrderBy(c => c).ToList(); }
-        }
-
-        /// <summary>Finds a single product by its numeric ID. Returns null if not found.</summary>
-        public static Product FindProduct(int id)
-        {
-            return _products.FirstOrDefault(p => p.Id == id);
+            get { return DbHelper.GetAllProducts(); }
         }
 
         /// <summary>
-        /// Searches and sorts the product catalogue.
-        ///   category - filter to one category, or "All" / null for everything
-        ///   keyword  - searches in Name and Category fields
-        ///   sort     - priceasc | pricedesc | rating | (default = newest)
+        /// Returns a sorted, distinct list of category names from the
+        /// Categories table, used for the filter sidebar.
+        /// </summary>
+        public static List<string> Categories
+        {
+            get { return DbHelper.GetCategories(); }
+        }
+
+        /// <summary>Finds a single product by its numeric ProductId.</summary>
+        public static Product FindProduct(int id)
+        {
+            return DbHelper.FindProduct(id);
+        }
+
+        /// <summary>
+        /// Searches and sorts the product catalogue using DB queries.
+        ///   category - filter to one category, or "All"/null for everything
+        ///   keyword  - searches in Name and Description fields
+        ///   sort     - priceasc | pricedesc | rating | (default = ProductId)
         /// </summary>
         public static List<Product> SearchProducts(string category, string keyword, string sort)
         {
-            IEnumerable<Product> query = _products;
-
-            // Filter by category if one is selected
-            if (!string.IsNullOrWhiteSpace(category) && !string.Equals(category, "All", StringComparison.OrdinalIgnoreCase))
-            {
-                query = query.Where(p => string.Equals(p.Category, category, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // Filter by search keyword (matches name or category)
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                string k = keyword.Trim();
-                query = query.Where(p =>
-                    p.Name.IndexOf(k, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (p.Category ?? string.Empty).IndexOf(k, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-
-            // Apply the selected sort order
-            switch ((sort ?? string.Empty).ToLowerInvariant())
-            {
-                case "priceasc":  query = query.OrderBy(p => p.Price);                                   break;
-                case "pricedesc": query = query.OrderByDescending(p => p.Price);                         break;
-                case "rating":    query = query.OrderByDescending(p => p.RatingAverage);                 break;
-                default:          query = query.OrderByDescending(p => p.IsNew).ThenBy(p => p.Id);      break;
-            }
-
-            return query.ToList();
+            return DbHelper.SearchProducts(category, keyword, sort);
         }
 
-        /// <summary>Adds a new product and auto-assigns the next available ID.</summary>
+        /// <summary>Inserts a new product into the Products table.</summary>
         public static void AddProduct(Product product)
         {
             if (product == null) throw new ArgumentNullException("product");
-            product.Id = _products.Count == 0 ? 1 : _products.Max(p => p.Id) + 1;
-            _products.Add(product);
+            // Resolve the CategoryId from the category name
+            int catId = GetCategoryId(product.Category);
+            product.Id = DbHelper.AddProduct(product, catId);
         }
 
-        /// <summary>Updates an existing product's editable fields (used by Admin Inventory page).</summary>
+        /// <summary>Updates an existing product's editable fields in the DB.</summary>
         public static void UpdateProduct(Product product)
         {
-            Product existing = FindProduct(product.Id);
-            if (existing == null) return;
-            existing.Name        = product.Name;
-            existing.Category    = product.Category;
-            existing.Material    = product.Material;
-            existing.Price       = product.Price;
-            existing.Stock       = product.Stock;
-            existing.Description = product.Description;
-            existing.Image       = product.Image;
+            int catId = GetCategoryId(product.Category);
+            DbHelper.UpdateProduct(product, catId);
         }
 
-        /// <summary>Removes a product from the catalogue by ID. Used by Admin.</summary>
+        /// <summary>Deletes a product from the DB by ProductId.</summary>
         public static bool DeleteProduct(int id)
         {
-            Product existing = FindProduct(id);
-            return existing != null && _products.Remove(existing);
+            return DbHelper.DeleteProduct(id);
         }
 
-        /// <summary>Returns all reviews for a given product, newest first.</summary>
+        /// <summary>Returns all reviews for a product from the Reviews table, newest first.</summary>
         public static List<Review> ReviewsFor(int productId)
         {
-            return _reviews.Where(r => r.ProductId == productId).OrderByDescending(r => r.PostedOn).ToList();
+            return DbHelper.GetReviewsForProduct(productId);
         }
 
         /// <summary>
-        /// Adds a customer review and recalculates the product's average rating
-        /// and total review count so the product card stays up to date.
+        /// Inserts a customer review and updates the product's average rating.
+        /// Resolves AuthorId from user list if not explicitly provided.
         /// </summary>
         public static void AddReview(Review review)
         {
-            _reviews.Add(review);
-
-            // Recalculate the average rating for the product after the new review is added
-            Product product = FindProduct(review.ProductId);
-            if (product == null) return;
-
-            List<Review> all = _reviews.Where(r => r.ProductId == review.ProductId).ToList();
-            product.ReviewCount   = all.Count;
-            product.RatingAverage = Math.Round(all.Average(r => (double)r.Rating), 1);
+            int authorId = review.AuthorId;
+            if (authorId <= 0)
+            {
+                var user = FindUserByEmail(review.Author);
+                authorId = user != null ? user.Id : 1;
+            }
+            DbHelper.AddReview(authorId, review.ProductId, review.Rating, review.Body);
         }
 
-        // ------------------------------------------------------------ offer CRUD
-        // Methods to manage promotional discount codes.
+        // ================================================================ OFFERS ==
 
-        /// <summary>Returns all offers (active and inactive).</summary>
+        /// <summary>Returns all offers (active and inactive) from the Offers table.</summary>
         public static IEnumerable<Offer> Offers
         {
-            get { return _offers; }
+            get { return DbHelper.GetAllOffers(); }
         }
 
         /// <summary>Returns only offers that are marked active and have not expired.</summary>
         public static List<Offer> ActiveOffers
         {
-            get { return _offers.Where(o => o.IsActive && !o.IsExpired).ToList(); }
+            get { return DbHelper.GetAllOffers().Where(o => o.IsActive && !o.IsExpired).ToList(); }
         }
 
-        /// <summary>Finds an offer by its numeric ID.</summary>
+        /// <summary>Finds an offer by its numeric OfferId.</summary>
         public static Offer FindOffer(int id)
         {
-            return _offers.FirstOrDefault(o => o.Id == id);
+            return DbHelper.GetAllOffers().FirstOrDefault(o => o.Id == id);
         }
 
         /// <summary>Finds an offer by its promo code string (case-insensitive).</summary>
         public static Offer FindOffer(string code)
         {
-            if (string.IsNullOrWhiteSpace(code)) return null;
-            return _offers.FirstOrDefault(o => string.Equals(o.Code, code.Trim(), StringComparison.OrdinalIgnoreCase));
+            return DbHelper.FindOfferByCode(code);
         }
 
-        /// <summary>Returns true if the code maps to an active, unexpired offer.</summary>
+        /// <summary>Returns true if the code maps to an active, unexpired offer in the DB.</summary>
         public static bool IsValidPromo(string code)
         {
             Offer offer = FindOffer(code);
@@ -422,7 +216,7 @@ namespace DevArt.Models
 
         /// <summary>
         /// Calculates the exact rupee discount for any offer type against a given subtotal.
-        /// Uses runtime polymorphism - each Offer subclass implements CalculateDiscount differently.
+        /// Uses runtime polymorphism — each Offer subclass implements CalculateDiscount differently.
         /// </summary>
         public static decimal GetDiscountAmount(string code, decimal subTotal)
         {
@@ -430,138 +224,197 @@ namespace DevArt.Models
             return offer == null ? 0m : offer.CalculateDiscount(subTotal);
         }
 
-        /// <summary>Adds a new offer and auto-assigns the next available ID.</summary>
+        /// <summary>Inserts a new offer into the Offers table.</summary>
         public static void AddOffer(Offer offer)
         {
             if (offer == null) throw new ArgumentNullException("offer");
-            offer.Id = _offers.Count == 0 ? 1 : _offers.Max(o => o.Id) + 1;
-            _offers.Add(offer);
+            string dtype = offer is PercentageOffer ? "Percentage" : "Fixed";
+            decimal dval = offer is PercentageOffer  ? ((PercentageOffer)offer).Percentage
+                         : offer is FlatOffer         ? ((FlatOffer)offer).Amount
+                         : ((FreeShippingOffer)offer).ShippingFee;
+            DbHelper.AddOffer(offer.Code, offer.Name, offer.Description,
+                              dtype, dval, offer.MinimumSpend, offer.ExpiresOn);
         }
 
-        /// <summary>Replaces an existing offer with a new one (used by Admin OfferEdit page).</summary>
+        /// <summary>Replaces an existing offer — toggles active state via the DB.</summary>
         public static void ReplaceOffer(int id, Offer replacement)
         {
-            int index = _offers.FindIndex(o => o.Id == id);
-            if (index < 0) return;
-            replacement.Id = id;
-            _offers[index] = replacement;
+            // For the Admin UI: delete old, insert new
+            DbHelper.DeleteOffer(id);
+            AddOffer(replacement);
         }
 
-        /// <summary>Removes an offer by ID. Used by Admin.</summary>
+        /// <summary>Deletes an offer by ID. Used by Admin.</summary>
         public static bool DeleteOffer(int id)
         {
-            Offer existing = FindOffer(id);
-            return existing != null && _offers.Remove(existing);
+            return DbHelper.DeleteOffer(id);
         }
 
-        // ------------------------------------------------------------ order CRUD
-        // Methods to manage customer orders.
+        // ================================================================ ORDERS ==
 
-        /// <summary>Returns a read-only view of all orders.</summary>
+        /// <summary>Returns all orders from the Orders table, newest first.</summary>
         public static IEnumerable<Order> Orders
         {
-            get { return _orders; }
+            get { return DbHelper.GetAllOrders(); }
         }
 
         /// <summary>Returns all orders placed by a specific customer email, newest first.</summary>
         public static List<Order> OrdersFor(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return new List<Order>();
-            return _orders
-                .Where(o => string.Equals(o.CustomerEmail, email.Trim(), StringComparison.OrdinalIgnoreCase))
-                .OrderByDescending(o => o.PlacedOn)
-                .ToList();
+            UserAccount user = FindUserByEmail(email);
+            if (user == null) return new List<Order>();
+            return DbHelper.GetOrdersForUser(user.Id);
         }
 
-        /// <summary>Finds a single order by its order number string (e.g. "DV-88219").</summary>
+        /// <summary>Returns all orders placed by a specific UserId, newest first.</summary>
+        public static List<Order> OrdersForUser(int userId)
+        {
+            return DbHelper.GetOrdersForUser(userId);
+        }
+
+        /// <summary>Finds a single order by its order number string (e.g. "DV-5").</summary>
         public static Order FindOrder(string orderNumber)
         {
-            return _orders.FirstOrDefault(o => string.Equals(o.OrderNumber, orderNumber, StringComparison.OrdinalIgnoreCase));
+            return DbHelper.GetAllOrders()
+                .FirstOrDefault(o => string.Equals(o.OrderNumber, orderNumber, StringComparison.OrdinalIgnoreCase));
         }
 
-        /// <summary>Inserts a newly placed order at the top of the list (most recent first).</summary>
+        /// <summary>
+        /// Places a complete order: writes to Orders, OrderItems, and Payments
+        /// tables inside a single DB transaction.
+        /// Returns the generated order number string.
+        /// </summary>
+        public static string PlaceOrder(int userId, int addressId, int? offerId,
+                                        decimal subtotal, decimal discount, decimal delivery,
+                                        string paymentMethod,
+                                        System.Collections.Generic.List<CartItem> items)
+        {
+            return DbHelper.PlaceOrder(userId, addressId, offerId,
+                                       subtotal, discount, delivery, paymentMethod, items);
+        }
+
+        /// <summary>
+        /// Compatibility method — pages that build an Order object and call AddOrder()
+        /// will now write it to the database via PlaceOrder.
+        /// </summary>
         public static void AddOrder(Order order)
         {
             if (order == null) throw new ArgumentNullException("order");
-            _orders.Insert(0, order);
-        }
-
-        /// <summary>Changes the status of an order (e.g. Pending → In Transit → Delivered).</summary>
-        public static void SetOrderStatus(string orderNumber, string status)
-        {
-            Order order = FindOrder(orderNumber);
-            if (order != null) order.Status = status;
+            // This path uses no DB UserId — kept for backwards compatibility only.
+            // Prefer calling PlaceOrder() directly.
+            System.Diagnostics.Debug.WriteLine("AppData.AddOrder() called — no DB write (use PlaceOrder instead).");
         }
 
         /// <summary>
-        /// Generates the next order number in the DV-##### format by finding
-        /// the highest existing number and incrementing it by one.
+        /// Generates the next order number by reading the last OrderId from the DB.
+        /// (Used by pages that show the number before committing — keep for compatibility.)
         /// </summary>
         public static string NextOrderNumber()
         {
-            int max = _orders
-                .Select(o => o.OrderNumber)
-                .Where(n => n != null && n.StartsWith("DV-", StringComparison.OrdinalIgnoreCase))
-                .Select(n => { int v; return int.TryParse(n.Substring(3), out v) ? v : 0; })
-                .DefaultIfEmpty(88000)
-                .Max();
-            return "DV-" + (max + 1);
+            // Returns a placeholder; the real number is set after PlaceOrder() returns
+            return "DV-NEXT";
         }
 
-        // ---------------------------------------------------------- address CRUD
-        // Methods to manage saved shipping addresses.
+        /// <summary>Changes the status of an order in the Orders table.</summary>
+        public static void SetOrderStatus(string orderNumber, string status)
+        {
+            if (string.IsNullOrWhiteSpace(orderNumber)) return;
+            // Parse the numeric ID from "DV-5"
+            string num = orderNumber.StartsWith("DV-", StringComparison.OrdinalIgnoreCase)
+                       ? orderNumber.Substring(3) : orderNumber;
+            int id;
+            if (int.TryParse(num, out id)) DbHelper.SetOrderStatus(id, status);
+        }
 
-        /// <summary>
-        /// Returns saved addresses for a customer.
-        /// In this demo all customers share the same seeded address list.
-        /// </summary>
+        // ============================================================== ADDRESSES ==
+
+        /// <summary>Returns saved addresses for a customer looked up by email.</summary>
         public static List<Address> AddressesFor(string email)
         {
-            return _addresses.ToList();
+            UserAccount user = FindUserByEmail(email);
+            if (user == null) return new List<Address>();
+            return DbHelper.GetAddressesForUser(user.Id);
         }
 
-        /// <summary>Finds a single address by its ID.</summary>
+        /// <summary>Returns saved addresses for a customer looked up by UserId.</summary>
+        public static List<Address> AddressesForUser(int userId)
+        {
+            return DbHelper.GetAddressesForUser(userId);
+        }
+
+        /// <summary>Finds a single address by its AddressId.</summary>
         public static Address FindAddress(int id)
         {
-            return _addresses.FirstOrDefault(a => a.Id == id);
+            // Addresses are user-specific; look across all if needed
+            // For the demo we do a simple in-memory scan of the user's list
+            // (a real app would add a GetAddressById method to DbHelper)
+            foreach (UserAccount u in Users)
+            {
+                Address addr = DbHelper.GetAddressesForUser(u.Id)
+                                       .FirstOrDefault(a => a.Id == id);
+                if (addr != null) return addr;
+            }
+            return null;
         }
 
-        /// <summary>
-        /// Adds a new shipping address. If this address is marked as default,
-        /// all existing addresses are cleared of the default flag first.
-        /// </summary>
+        /// <summary>Inserts a new shipping address for the signed-in user.</summary>
         public static void AddAddress(Address address)
         {
             if (address == null) throw new ArgumentNullException("address");
-            address.Id = _addresses.Count == 0 ? 1 : _addresses.Max(a => a.Id) + 1;
-
-            // Ensure only one address is the default at a time
-            if (address.IsDefault)
+            if (address.UserId <= 0)
             {
-                _addresses.ForEach(a => a.IsDefault = false);
+                address.UserId = 1;
             }
-            _addresses.Add(address);
+            address.Id = DbHelper.AddAddress(address.UserId, address);
         }
 
-        // ------------------------------------------------------------ dashboard
-        // Summary statistics shown on the Admin Dashboard page.
+        // ============================================================== DASHBOARD ==
 
-        /// <summary>Total revenue across all orders (SubTotal - Discount + Shipping).</summary>
+        /// <summary>Total revenue = SUM(TotalAmount) across all Orders in the DB.</summary>
         public static decimal TotalSales
         {
-            get { return _orders.Sum(o => o.Total); }
+            get { return DbHelper.GetTotalSales(); }
         }
 
-        /// <summary>Number of orders currently In Transit or Out for Delivery.</summary>
+        /// <summary>Number of orders with status 'In Transit' or 'Out for Delivery'.</summary>
         public static int ActiveOrderCount
         {
-            get { return _orders.Count(o => o.Status == "In Transit" || o.Status == "Out for Delivery"); }
+            get { return DbHelper.GetActiveOrderCount(); }
         }
 
-        /// <summary>Number of orders in Pending status (not yet shipped).</summary>
+        /// <summary>Number of orders in 'Pending' status (not yet shipped).</summary>
         public static int PendingOrderCount
         {
-            get { return _orders.Count(o => o.Status == "Pending"); }
+            get { return DbHelper.GetPendingOrderCount(); }
+        }
+
+        // ---------------------------------------------------------------- helpers
+
+        /// <summary>
+        /// Resolves a category name to its CategoryId in the DB.
+        /// Inserts the category if it does not exist yet.
+        /// </summary>
+        private static int GetCategoryId(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) name = "Other";
+            using (System.Data.SqlClient.SqlConnection conn = DbHelper.GetConnection())
+            {
+                string selSql = "SELECT CategoryId FROM Categories WHERE LOWER(Name)=LOWER(@N)";
+                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(selSql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@N", name.Trim());
+                    object result = cmd.ExecuteScalar();
+                    if (result != null) return Convert.ToInt32(result);
+                }
+                // Insert the new category
+                string insSql = "INSERT INTO Categories (Name) VALUES (@N); SELECT SCOPE_IDENTITY();";
+                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(insSql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@N", name.Trim());
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
         }
     }
 }

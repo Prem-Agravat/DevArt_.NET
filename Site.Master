@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">DevArt</asp:ContentPlaceHolder></title>
-    <link href="<%= ResolveUrl("~/Content/Site.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Content/Site.css") %>?v=3" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
@@ -35,7 +35,7 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" placeholder="Search decor..."></asp:TextBox>
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" placeholder="Search decor..." autocomplete="new-password"></asp:TextBox>
                     </div>
 
                     <a href="Wishlist.aspx" class="header-icon" title="Wishlist">

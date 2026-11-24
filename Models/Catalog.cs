@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace DevArt.Models
@@ -58,6 +58,9 @@ namespace DevArt.Models
     public class Review
     {
         public int ProductId { get; set; }
+
+        /// <summary>DB UserId of the reviewer — required by AddReview.</summary>
+        public int AuthorId { get; set; }
 
         public string Author { get; set; }
 
@@ -182,6 +185,9 @@ namespace DevArt.Models
     public class Address
     {
         public int Id { get; set; }
+
+        /// <summary>FK to Users.UserId — required when inserting via DbHelper.</summary>
+        public int UserId { get; set; }
 
         public string FullName { get; set; }
 
